@@ -9,7 +9,7 @@
 import UIKit
 import NextcloudUI
 
-public class ApplicationModule {
+public class ApplicationModule: AccountListRouter {
     
     public let window: UIWindow
     
@@ -26,12 +26,20 @@ public class ApplicationModule {
         
         fileBrowserModule.accountListModule = accountListModule
         mainModule.fileBrowserModule = fileBrowserModule
+        
+        accountListModule.router = self
     }
     
     public func present() {
         window.backgroundColor = UIColor.white
         window.rootViewController = mainModule.makeViewController()
         window.makeKeyAndVisible()
+    }
+    
+    // MARK: AccountListRouter
+    
+    public func presentFolder() {
+        
     }
     
 }

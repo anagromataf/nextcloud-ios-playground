@@ -25,6 +25,13 @@
 		F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A41E36ABFB00F2F86D /* MainModule.swift */; };
 		F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A71E36B10500F2F86D /* FileBrowserModule.swift */; };
 		F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */; };
+		F61759AF1E36C0C900F2F86D /* AccountListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AE1E36C0C900F2F86D /* AccountListView.swift */; };
+		F61759B31E36C11F00F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */; };
+		F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B91E36C2E400F2F86D /* AccountListViewController.swift */; };
+		F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759BD1E36C62F00F2F86D /* AccountListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +117,11 @@
 		F61759A41E36ABFB00F2F86D /* MainModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainModule.swift; sourceTree = "<group>"; };
 		F61759A71E36B10500F2F86D /* FileBrowserModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserModule.swift; sourceTree = "<group>"; };
 		F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterfaceModule.swift; sourceTree = "<group>"; };
+		F61759AE1E36C0C900F2F86D /* AccountListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListView.swift; sourceTree = "<group>"; };
+		F61759B21E36C11F00F2F86D /* Fountain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fountain.framework; path = ../Carthage/Build/iOS/Fountain.framework; sourceTree = "<group>"; };
+		F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListPresenter.swift; sourceTree = "<group>"; };
+		F61759B91E36C2E400F2F86D /* AccountListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
+		F61759BD1E36C62F00F2F86D /* AccountListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +131,7 @@
 			files = (
 				F61759931E36A81F00F2F86D /* NextcloudCore.framework in Frameworks */,
 				F61759701E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
+				F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61759B31E36C11F00F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61759641E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
+				F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +179,7 @@
 				F617597F1E36A81F00F2F86D /* NextcloudCore */,
 				F617598C1E36A81F00F2F86D /* NextcloudCoreTests */,
 				F617593F1E36A5D200F2F86D /* Products */,
+				F61759B11E36C11F00F2F86D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -275,6 +291,8 @@
 			isa = PBXGroup;
 			children = (
 				F617599F1E36A9E700F2F86D /* AccountListModule.swift */,
+				F61759C01E36C89C00F2F86D /* Presenter */,
+				F61759BF1E36C89600F2F86D /* View */,
 			);
 			name = "Account List";
 			sourceTree = "<group>";
@@ -293,6 +311,32 @@
 				F61759A71E36B10500F2F86D /* FileBrowserModule.swift */,
 			);
 			name = "File Browser";
+			sourceTree = "<group>";
+		};
+		F61759B11E36C11F00F2F86D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F61759B21E36C11F00F2F86D /* Fountain.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F61759BF1E36C89600F2F86D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F61759AE1E36C0C900F2F86D /* AccountListView.swift */,
+				F61759B91E36C2E400F2F86D /* AccountListViewController.swift */,
+				F61759BD1E36C62F00F2F86D /* AccountListCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F61759C01E36C89C00F2F86D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */,
+			);
+			name = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +369,7 @@
 				F617593B1E36A5D200F2F86D /* Frameworks */,
 				F617593C1E36A5D200F2F86D /* Resources */,
 				F61759751E36A7FA00F2F86D /* Embed Frameworks */,
+				F61759B61E36C15900F2F86D /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -513,6 +558,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F61759B61E36C15900F2F86D /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Fountain.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F617593A1E36A5D200F2F86D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -527,10 +590,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */,
+				F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */,
 				F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */,
 				F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */,
 				F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */,
 				F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */,
+				F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */,
+				F61759AF1E36C0C900F2F86D /* AccountListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +770,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = Nextcloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -718,6 +786,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = Nextcloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -739,6 +808,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -765,6 +835,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -783,6 +854,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudUITests;
@@ -797,6 +869,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudUITests;
@@ -817,6 +890,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -841,6 +915,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -859,6 +934,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCoreTests;
@@ -873,6 +949,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCoreTests;

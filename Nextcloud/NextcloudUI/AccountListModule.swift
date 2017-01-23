@@ -8,14 +8,23 @@
 
 import UIKit
 
+public protocol AccountListRouter: class {
+    func presentFolder() -> Void
+}
+
 public class AccountListModule: UserInterfaceModule {
+    
+    public weak var router: AccountListRouter?
     
     public init() {
     }
     
     public func makeViewController() -> UIViewController {
-        let viewControler = UIViewController()
-        viewControler.view.backgroundColor = UIColor.green
+        let viewControler = AccountListViewController()
+        let presenter = AccountListPresenter()
+        presenter.view = viewControler
+        presenter.router = router
+        viewControler.presenter = presenter
         return viewControler
     }
     
