@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class MainModule {
+public class MainModule: UserInterfaceModule {
     
-    public var fileBrowserModule: FileBrowserModule?
+    public var fileBrowserModule: UserInterfaceModule?
     
     public init() {
     }

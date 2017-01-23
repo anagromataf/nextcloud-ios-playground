@@ -24,6 +24,7 @@
 		F61759A31E36AB3100F2F86D /* ApplicationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A21E36AB3100F2F86D /* ApplicationModule.swift */; };
 		F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A41E36ABFB00F2F86D /* MainModule.swift */; };
 		F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A71E36B10500F2F86D /* FileBrowserModule.swift */; };
+		F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		F61759A21E36AB3100F2F86D /* ApplicationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationModule.swift; sourceTree = "<group>"; };
 		F61759A41E36ABFB00F2F86D /* MainModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainModule.swift; sourceTree = "<group>"; };
 		F61759A71E36B10500F2F86D /* FileBrowserModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserModule.swift; sourceTree = "<group>"; };
+		F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterfaceModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 		F617599B1E36A97000F2F86D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */,
 				F617599E1E36A99700F2F86D /* Account List */,
 				F61759A91E36B10A00F2F86D /* File Browser */,
 				F61759A61E36AC0100F2F86D /* Main */,
@@ -526,6 +529,7 @@
 			files = (
 				F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */,
 				F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */,
+				F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */,
 				F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

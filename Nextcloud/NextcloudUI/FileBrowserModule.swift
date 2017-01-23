@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class FileBrowserModule {
+public class FileBrowserModule: UserInterfaceModule {
     
-    public var accountListModule: AccountListModule?
+    public var accountListModule: UserInterfaceModule?
     
     public init() {
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class AccountListModule {
+public class AccountListModule: UserInterfaceModule {
     
     public init() {
     }
