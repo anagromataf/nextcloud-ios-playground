@@ -10,12 +10,13 @@ import UIKit
 import NextcloudUI
 import NextcloudCore
 
-public class ApplicationModule: AccountListRouter {
+public class ApplicationModule: AccountListRouter, FileListRouter {
     
     public let window: UIWindow
     public let service: Service
     
     let accountListModule: AccountListModule
+    let fileListModule: FileListModule
     let fileBrowserModule: FileBrowserModule
     let mainModule: MainModule
     
@@ -24,13 +25,16 @@ public class ApplicationModule: AccountListRouter {
         self.service = service
         
         accountListModule = AccountListModule(accountManager: service.accountManager)
+        fileListModule = FileListModule(accountManager: service.accountManager)
         fileBrowserModule = FileBrowserModule()
         mainModule = MainModule()
         
         fileBrowserModule.accountListModule = accountListModule
+        fileBrowserModule.fileListModule = fileListModule
         mainModule.fileBrowserModule = fileBrowserModule
         
         accountListModule.router = self
+        fileListModule.router = self
     }
     
     public func present() {
@@ -39,13 +43,13 @@ public class ApplicationModule: AccountListRouter {
         window.makeKeyAndVisible()
     }
     
-    // MARK: AccountListRouter
+    // MARK: AccountListRouter, FileListRouter
     
     public func present(_ resource: Resource) {
         guard
             let resourcePresenter = window.rootViewController as? ResourcePresenter
             else { return }
-        resourcePresenter.present("123", animated: true)
+        resourcePresenter.present(resource, animated: true)
     }
     
     public func presentNewAccount() {

@@ -35,6 +35,13 @@
 		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
 		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
 		F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
+		F677BE9B1E37931200BD488C /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE9A1E37931200BD488C /* ResourceManager.swift */; };
+		F677BE9D1E3796CC00BD488C /* FileListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE9C1E3796CC00BD488C /* FileListModule.swift */; };
+		F677BEA21E3797FE00BD488C /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BEA11E3797FE00BD488C /* FileListView.swift */; };
+		F677BEA41E37983200BD488C /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BEA31E37983200BD488C /* FileListViewController.swift */; };
+		F677BEA61E37989100BD488C /* FileListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BEA51E37989100BD488C /* FileListCell.swift */; };
+		F677BEA81E3798AF00BD488C /* FileListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BEA71E3798AF00BD488C /* FileListPresenter.swift */; };
+		F677BEAB1E379AB000BD488C /* FileListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BEAA1E379AB000BD488C /* FileListDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +142,13 @@
 		F61759C11E36DCE500F2F86D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		F677BE951E37809D00BD488C /* AccountListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListDataSource.swift; sourceTree = "<group>"; };
+		F677BE9A1E37931200BD488C /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		F677BE9C1E3796CC00BD488C /* FileListModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListModule.swift; sourceTree = "<group>"; };
+		F677BEA11E3797FE00BD488C /* FileListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
+		F677BEA31E37983200BD488C /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
+		F677BEA51E37989100BD488C /* FileListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListCell.swift; sourceTree = "<group>"; };
+		F677BEA71E3798AF00BD488C /* FileListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListPresenter.swift; sourceTree = "<group>"; };
+		F677BEAA1E379AB000BD488C /* FileListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +274,7 @@
 			children = (
 				F677BE901E377C6200BD488C /* Service.swift */,
 				F61759C11E36DCE500F2F86D /* AccountManager.swift */,
+				F677BE9A1E37931200BD488C /* ResourceManager.swift */,
 				F677BE8F1E377C3800BD488C /* Supporting Files */,
 			);
 			path = NextcloudCore;
@@ -280,6 +295,7 @@
 				F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */,
 				F617599E1E36A99700F2F86D /* Account List */,
 				F61759A91E36B10A00F2F86D /* File Browser */,
+				F677BE9E1E3796D100BD488C /* File List */,
 				F61759A61E36AC0100F2F86D /* Main */,
 			);
 			name = Modules;
@@ -361,6 +377,35 @@
 				F61759811E36A81F00F2F86D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F677BE9E1E3796D100BD488C /* File List */ = {
+			isa = PBXGroup;
+			children = (
+				F677BE9C1E3796CC00BD488C /* FileListModule.swift */,
+				F677BEA91E3799B400BD488C /* Presenter */,
+				F677BEA01E3797F200BD488C /* View */,
+			);
+			name = "File List";
+			sourceTree = "<group>";
+		};
+		F677BEA01E3797F200BD488C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F677BEA11E3797FE00BD488C /* FileListView.swift */,
+				F677BEA31E37983200BD488C /* FileListViewController.swift */,
+				F677BEA51E37989100BD488C /* FileListCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F677BEA91E3799B400BD488C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F677BEA71E3798AF00BD488C /* FileListPresenter.swift */,
+				F677BEAA1E379AB000BD488C /* FileListDataSource.swift */,
+			);
+			name = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -618,9 +663,15 @@
 			files = (
 				F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */,
 				F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */,
+				F677BEA61E37989100BD488C /* FileListCell.swift in Sources */,
+				F677BEA41E37983200BD488C /* FileListViewController.swift in Sources */,
 				F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */,
 				F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */,
+				F677BEA21E3797FE00BD488C /* FileListView.swift in Sources */,
 				F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */,
+				F677BEA81E3798AF00BD488C /* FileListPresenter.swift in Sources */,
+				F677BEAB1E379AB000BD488C /* FileListDataSource.swift in Sources */,
+				F677BE9D1E3796CC00BD488C /* FileListModule.swift in Sources */,
 				F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */,
 				F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */,
 				F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */,
@@ -641,6 +692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */,
+				F677BE9B1E37931200BD488C /* ResourceManager.swift in Sources */,
 				F677BE911E377C6200BD488C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
