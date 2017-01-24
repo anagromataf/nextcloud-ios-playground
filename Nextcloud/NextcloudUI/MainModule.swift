@@ -32,3 +32,24 @@ public class MainModule: UserInterfaceModule {
     }
     
 }
+
+extension UISplitViewController: ResourcePresenter {
+    
+    public var resource: Resource? {
+        guard
+            let resourcePresenter = viewControllers.first as? ResourcePresenter
+            else { return nil }
+        
+        return resourcePresenter.resource
+    }
+    
+    public func present(_ resource: Resource, animated: Bool) {
+        guard
+            let resourcePresenter = viewControllers.first as? ResourcePresenter
+            else { return }
+        
+        resourcePresenter.present(resource, animated: animated)
+    }
+    
+}
+ 

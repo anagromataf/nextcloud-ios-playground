@@ -32,7 +32,7 @@ class AccountListPresenter {
     }
     
     func didSelect(itemAt indexPath: IndexPath) {
-        router?.presentFolder()
+        router?.present("123")
     }
     
     private class ListItem: AccountListViewModel {

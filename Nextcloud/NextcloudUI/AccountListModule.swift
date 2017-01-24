@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol AccountListRouter: class {
-    func presentFolder() -> Void
+    func present(_ resource: Resource) -> Void
 }
 
 public class AccountListModule: UserInterfaceModule {

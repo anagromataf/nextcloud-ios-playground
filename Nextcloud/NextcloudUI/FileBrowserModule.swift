@@ -25,3 +25,16 @@ public class FileBrowserModule: UserInterfaceModule {
         return UINavigationController(rootViewController: accountListViewController)
     }
 }
+
+extension UINavigationController: ResourcePresenter {
+    
+    public var resource: Resource? {
+        return nil
+    }
+    
+    public func present(_ resource: Resource, animated: Bool) {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = UIColor.cyan
+        pushViewController(viewController, animated: animated)
+    }
+}

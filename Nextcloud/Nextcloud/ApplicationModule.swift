@@ -38,8 +38,11 @@ public class ApplicationModule: AccountListRouter {
     
     // MARK: AccountListRouter
     
-    public func presentFolder() {
-        
+    public func present(_ resource: Resource) {
+        guard
+            let resourcePresenter = window.rootViewController as? ResourcePresenter
+            else { return }
+        resourcePresenter.present("123", animated: true)
     }
     
 }
