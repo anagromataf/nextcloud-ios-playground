@@ -34,6 +34,7 @@
 		F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759BD1E36C62F00F2F86D /* AccountListCell.swift */; };
 		F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759C11E36DCE500F2F86D /* AccountManager.swift */; };
 		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
+		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		F61759BD1E36C62F00F2F86D /* AccountListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListCell.swift; sourceTree = "<group>"; };
 		F61759C11E36DCE500F2F86D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		F677BE951E37809D00BD488C /* AccountListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */,
+				F677BE951E37809D00BD488C /* AccountListDataSource.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */,
 				F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */,
 				F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */,
+				F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */,
 				F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */,
 				F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */,
 				F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */,

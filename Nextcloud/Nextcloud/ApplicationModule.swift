@@ -8,19 +8,22 @@
 
 import UIKit
 import NextcloudUI
+import NextcloudCore
 
 public class ApplicationModule: AccountListRouter {
     
     public let window: UIWindow
+    public let service: Service
     
     let accountListModule: AccountListModule
     let fileBrowserModule: FileBrowserModule
     let mainModule: MainModule
     
-    public init(window: UIWindow) {
+    public init(window: UIWindow, service: Service) {
         self.window = window
+        self.service = service
         
-        accountListModule = AccountListModule()
+        accountListModule = AccountListModule(accountManager: service.accountManager)
         fileBrowserModule = FileBrowserModule()
         mainModule = MainModule()
         

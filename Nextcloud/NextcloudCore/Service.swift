@@ -29,8 +29,10 @@ public class Service {
                     throw AccountManagerError.alreadyExists
                 } else {
                     _accounts.append(account)
-                    let center = NotificationCenter.default
-                    center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+                    DispatchQueue.main.async {
+                        let center = NotificationCenter.default
+                        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+                    }
                     return account
                 }
             }
@@ -40,8 +42,10 @@ public class Service {
             queue.sync {
                 if let index = _accounts.index(of: account) {
                     _accounts.remove(at: index)
-                    let center = NotificationCenter.default
-                    center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+                    DispatchQueue.main.async {
+                        let center = NotificationCenter.default
+                        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+                    }
                 }
             }
         }
@@ -51,6 +55,5 @@ public class Service {
                 return _accounts
             }
         }
-        
     }
 }

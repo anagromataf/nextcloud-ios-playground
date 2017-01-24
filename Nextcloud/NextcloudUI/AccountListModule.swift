@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NextcloudCore
 
 public protocol AccountListRouter: class {
     func present(_ resource: Resource) -> Void
@@ -15,13 +16,14 @@ public protocol AccountListRouter: class {
 public class AccountListModule: UserInterfaceModule {
     
     public weak var router: AccountListRouter?
-    
-    public init() {
+    public let accountManager: AccountManager
+    public init(accountManager: AccountManager) {
+        self.accountManager = accountManager
     }
     
     public func makeViewController() -> UIViewController {
         let viewControler = AccountListViewController()
-        let presenter = AccountListPresenter()
+        let presenter = AccountListPresenter(accountManager: accountManager)
         presenter.view = viewControler
         presenter.router = router
         viewControler.presenter = presenter

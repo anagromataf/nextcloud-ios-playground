@@ -8,6 +8,7 @@
 
 import Foundation
 import Fountain
+import NextcloudCore
 
 class AccountListPresenter {
     
@@ -19,28 +20,16 @@ class AccountListPresenter {
         }
     }
     
-    private let dataSource: FTMutableArray
+    private let dataSource: FTDataSource
     
-    init() {
-        dataSource = FTMutableArray(array: [
-            ListItem(title: "Foo", subtitle: "Bar"),
-            ListItem(title: "Foo", subtitle: "Bar"),
-            ListItem(title: "Foo", subtitle: "Bar"),
-            ListItem(title: "Foo", subtitle: "Bar"),
-            ListItem(title: "Foo", subtitle: "Bar")
-            ])
+    let accountManager: AccountManager
+    
+    init(accountManager: AccountManager) {
+        self.accountManager = accountManager
+        dataSource = AccountListDataSource(accountManager: accountManager)
     }
     
     func didSelect(itemAt indexPath: IndexPath) {
         router?.present("123")
-    }
-    
-    private class ListItem: AccountListViewModel {
-        let title: String?
-        let subtitle: String?
-        init(title: String?, subtitle: String?) {
-            self.title = title
-            self.subtitle = subtitle
-        }
     }
 }
