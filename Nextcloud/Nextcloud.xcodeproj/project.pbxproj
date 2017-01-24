@@ -292,11 +292,11 @@
 		F617599B1E36A97000F2F86D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */,
 				F617599E1E36A99700F2F86D /* Account List */,
 				F61759A91E36B10A00F2F86D /* File Browser */,
 				F677BE9E1E3796D100BD488C /* File List */,
 				F61759A61E36AC0100F2F86D /* Main */,
-				F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */,
 			);
 			name = Modules;
 			sourceTree = "<group>";

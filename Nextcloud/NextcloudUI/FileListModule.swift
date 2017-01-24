@@ -31,3 +31,14 @@ public class FileListModule: UserInterfaceModule {
         return viewControler
     }
 }
+
+extension FileListViewController: ResourcePresenter {
+    
+    public var resource: Resource? {
+        return presenter?.resource
+    }
+    
+    public func present(_ resource: Resource, animated: Bool) {
+        presenter?.resource = resource
+    }
+}

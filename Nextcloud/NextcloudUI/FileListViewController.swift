@@ -21,7 +21,7 @@ class FileListViewController: UITableViewController, FileListView {
         
         tableViewAdapter = FTTableViewAdapter(tableView: tableView)
         
-        tableView.register(AccountListCell.self, forCellReuseIdentifier: "FileListCell")
+        tableView.register(FileListCell.self, forCellReuseIdentifier: "FileListCell")
         tableViewAdapter?.forRowsMatching(nil, useCellWithReuseIdentifier: "FileListCell") {
             (view, item, indexPath, dataSource) in
             if  let cell = view as? FileListCell,
