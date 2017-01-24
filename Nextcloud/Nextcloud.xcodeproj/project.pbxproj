@@ -26,7 +26,6 @@
 		F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A71E36B10500F2F86D /* FileBrowserModule.swift */; };
 		F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */; };
 		F61759AF1E36C0C900F2F86D /* AccountListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AE1E36C0C900F2F86D /* AccountListView.swift */; };
-		F61759B31E36C11F00F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
 		F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
 		F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
 		F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */; };
@@ -35,6 +34,7 @@
 		F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759C11E36DCE500F2F86D /* AccountManager.swift */; };
 		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
 		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
+		F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +74,13 @@
 			remoteInfo = Nextcloud;
 		};
 		F61759911E36A81F00F2F86D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F61759361E36A5D200F2F86D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F617597D1E36A81F00F2F86D;
+			remoteInfo = NextcloudCore;
+		};
+		F677BE981E37914000BD488C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F61759361E36A5D200F2F86D /* Project object */;
 			proxyType = 1;
@@ -145,7 +152,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F61759B31E36C11F00F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */,
 				F61759641E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
 				F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */,
 			);
@@ -411,6 +418,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F677BE991E37914000BD488C /* PBXTargetDependency */,
 			);
 			name = NextcloudUI;
 			productName = NextcloudUI;
@@ -677,6 +685,11 @@
 			isa = PBXTargetDependency;
 			target = F617597D1E36A81F00F2F86D /* NextcloudCore */;
 			targetProxy = F61759911E36A81F00F2F86D /* PBXContainerItemProxy */;
+		};
+		F677BE991E37914000BD488C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F617597D1E36A81F00F2F86D /* NextcloudCore */;
+			targetProxy = F677BE981E37914000BD488C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
