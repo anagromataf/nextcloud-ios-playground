@@ -32,5 +32,5 @@ public struct Folder: Resource {
 }
 
 public protocol ResourceManager {
-    
+    func contents(of resource: Resource) throws -> [Resource]
 }

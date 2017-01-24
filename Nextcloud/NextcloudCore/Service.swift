@@ -17,6 +17,21 @@ public class Service {
         self.accountManager = DummyAccountManager()
     }
     
+    func resourceManager(for account: Account) -> ResourceManager {
+        return DummyResourceManager()
+    }
+    
+    class DummyResourceManager: ResourceManager {
+        func contents(of resource: Resource) throws -> [Resource] {
+            let contents = ["a", "b", "c", "d", "e"].map { (name) -> Resource in
+                var path = resource.path
+                path.append(name)
+                return Folder(account: resource.account, path: path)
+            }
+            return contents
+        }
+    }
+    
     class DummyAccountManager: AccountManager {
         
         let queue: DispatchQueue = DispatchQueue(label: "DummyAccountManager")
