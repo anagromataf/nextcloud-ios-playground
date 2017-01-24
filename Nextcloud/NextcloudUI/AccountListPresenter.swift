@@ -20,7 +20,7 @@ class AccountListPresenter {
         }
     }
     
-    private let dataSource: FTDataSource
+    private let dataSource: AccountListDataSource
     
     let accountManager: AccountManager
     
@@ -32,7 +32,10 @@ class AccountListPresenter {
     // MARK: - Actions
     
     func didSelect(itemAt indexPath: IndexPath) {
-        router?.present("123")
+        guard
+            let account = dataSource.account(at: indexPath)
+            else { return }
+        router?.present(File(account: account, path: []))
     }
     
     func addAccount() {

@@ -45,7 +45,7 @@ public class ApplicationModule: AccountListRouter {
         guard
             let resourcePresenter = window.rootViewController as? ResourcePresenter
             else { return }
-        resourcePresenter.present("123", animated: true)
+        resourcePresenter.present(resource, animated: true)
     }
     
     public func presentNewAccount() {

@@ -54,6 +54,14 @@ class AccountListDataSource: NSObject, FTDataSource {
         }
     }
     
+    func account(at indexPath: IndexPath) -> Account? {
+        if indexPath.section == 0 {
+            return accounts[indexPath.item]
+        } else {
+            return nil
+        }
+    }
+    
     // MARK: - FTDataSource
     
     public func numberOfSections() -> UInt {

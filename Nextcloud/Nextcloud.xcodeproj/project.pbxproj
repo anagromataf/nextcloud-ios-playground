@@ -35,6 +35,7 @@
 		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
 		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
 		F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
+		F677BE9B1E37931200BD488C /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE9A1E37931200BD488C /* ResourceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		F61759C11E36DCE500F2F86D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		F677BE951E37809D00BD488C /* AccountListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListDataSource.swift; sourceTree = "<group>"; };
+		F677BE9A1E37931200BD488C /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 			children = (
 				F677BE901E377C6200BD488C /* Service.swift */,
 				F61759C11E36DCE500F2F86D /* AccountManager.swift */,
+				F677BE9A1E37931200BD488C /* ResourceManager.swift */,
 				F677BE8F1E377C3800BD488C /* Supporting Files */,
 			);
 			path = NextcloudCore;
@@ -641,6 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */,
+				F677BE9B1E37931200BD488C /* ResourceManager.swift in Sources */,
 				F677BE911E377C6200BD488C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

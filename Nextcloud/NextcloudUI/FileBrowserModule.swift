@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NextcloudCore
 
 public class FileBrowserModule: UserInterfaceModule {
     
