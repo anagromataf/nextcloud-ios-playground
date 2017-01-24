@@ -17,10 +17,6 @@ public class Service {
         self.accountManager = DummyAccountManager()
     }
     
-    func resourceManager(for account: Account) -> ResourceManager {
-        return DummyResourceManager()
-    }
-    
     class DummyResourceManager: ResourceManager {
         func contents(of resource: Resource) throws -> [Resource] {
             let contents = ["a", "b", "c", "d", "e"].map { (name) -> Resource in
@@ -69,6 +65,10 @@ public class Service {
             return queue.sync {
                 return _accounts
             }
+        }
+        
+        func resourceManager(for account: Account) -> ResourceManager {
+            return DummyResourceManager()
         }
     }
 }

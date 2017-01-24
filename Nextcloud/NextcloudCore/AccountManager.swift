@@ -35,4 +35,5 @@ public protocol AccountManager {
     func add(_ account: Account) throws -> Account
     func remove(_ account: Account) throws -> Void
     func accounts() throws -> [Account]
+    func resourceManager(for account: Account) -> ResourceManager
 }

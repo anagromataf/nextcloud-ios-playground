@@ -35,7 +35,7 @@ class AccountListPresenter {
         guard
             let account = dataSource.account(at: indexPath)
             else { return }
-        router?.present(File(account: account, path: []))
+        router?.present(Folder(account: account, path: []))
     }
     
     func addAccount() {
