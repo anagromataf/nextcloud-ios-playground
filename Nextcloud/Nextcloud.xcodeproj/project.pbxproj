@@ -32,6 +32,8 @@
 		F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */; };
 		F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B91E36C2E400F2F86D /* AccountListViewController.swift */; };
 		F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759BD1E36C62F00F2F86D /* AccountListCell.swift */; };
+		F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759C11E36DCE500F2F86D /* AccountManager.swift */; };
+		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +124,8 @@
 		F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListPresenter.swift; sourceTree = "<group>"; };
 		F61759B91E36C2E400F2F86D /* AccountListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
 		F61759BD1E36C62F00F2F86D /* AccountListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListCell.swift; sourceTree = "<group>"; };
+		F61759C11E36DCE500F2F86D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,8 +249,9 @@
 		F617597F1E36A81F00F2F86D /* NextcloudCore */ = {
 			isa = PBXGroup;
 			children = (
-				F61759801E36A81F00F2F86D /* NextcloudCore.h */,
-				F61759811E36A81F00F2F86D /* Info.plist */,
+				F677BE901E377C6200BD488C /* Service.swift */,
+				F61759C11E36DCE500F2F86D /* AccountManager.swift */,
+				F677BE8F1E377C3800BD488C /* Supporting Files */,
 			);
 			path = NextcloudCore;
 			sourceTree = "<group>";
@@ -337,6 +342,15 @@
 				F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */,
 			);
 			name = Presenter;
+			sourceTree = "<group>";
+		};
+		F677BE8F1E377C3800BD488C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F61759801E36A81F00F2F86D /* NextcloudCore.h */,
+				F61759811E36A81F00F2F86D /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +500,7 @@
 					F617597D1E36A81F00F2F86D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EJW69VRSSH;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F61759851E36A81F00F2F86D = {
@@ -613,6 +628,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */,
+				F677BE911E377C6200BD488C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +900,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -898,6 +916,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -908,6 +927,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -978,6 +998,7 @@
 				F61759521E36A5D200F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759721E36A7FA00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudUI" */ = {
 			isa = XCConfigurationList;
@@ -986,6 +1007,7 @@
 				F61759741E36A7FA00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759761E36A7FA00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudUITests" */ = {
 			isa = XCConfigurationList;
@@ -994,6 +1016,7 @@
 				F61759781E36A7FA00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759951E36A81F00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudCore" */ = {
 			isa = XCConfigurationList;
@@ -1002,6 +1025,7 @@
 				F61759971E36A81F00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759981E36A81F00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudCoreTests" */ = {
 			isa = XCConfigurationList;
@@ -1010,6 +1034,7 @@
 				F617599A1E36A81F00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
