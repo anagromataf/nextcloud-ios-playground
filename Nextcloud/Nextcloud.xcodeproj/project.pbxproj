@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F61759421E36A5D200F2F86D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759411E36A5D200F2F86D /* AppDelegate.swift */; };
-		F61759441E36A5D200F2F86D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759431E36A5D200F2F86D /* ViewController.swift */; };
-		F61759471E36A5D200F2F86D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61759451E36A5D200F2F86D /* Main.storyboard */; };
 		F61759491E36A5D200F2F86D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F61759481E36A5D200F2F86D /* Assets.xcassets */; };
 		F617594C1E36A5D200F2F86D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F617594A1E36A5D200F2F86D /* LaunchScreen.storyboard */; };
 		F61759641E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617595B1E36A7FA00F2F86D /* NextcloudUI.framework */; };
@@ -22,6 +20,21 @@
 		F61759901E36A81F00F2F86D /* NextcloudCore.h in Headers */ = {isa = PBXBuildFile; fileRef = F61759801E36A81F00F2F86D /* NextcloudCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F61759931E36A81F00F2F86D /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
 		F61759941E36A81F00F2F86D /* NextcloudCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617599F1E36A9E700F2F86D /* AccountListModule.swift */; };
+		F61759A31E36AB3100F2F86D /* ApplicationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A21E36AB3100F2F86D /* ApplicationModule.swift */; };
+		F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A41E36ABFB00F2F86D /* MainModule.swift */; };
+		F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759A71E36B10500F2F86D /* FileBrowserModule.swift */; };
+		F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */; };
+		F61759AF1E36C0C900F2F86D /* AccountListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759AE1E36C0C900F2F86D /* AccountListView.swift */; };
+		F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */; };
+		F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759B91E36C2E400F2F86D /* AccountListViewController.swift */; };
+		F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759BD1E36C62F00F2F86D /* AccountListCell.swift */; };
+		F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61759C11E36DCE500F2F86D /* AccountManager.swift */; };
+		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
+		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
+		F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +80,13 @@
 			remoteGlobalIDString = F617597D1E36A81F00F2F86D;
 			remoteInfo = NextcloudCore;
 		};
+		F677BE981E37914000BD488C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F61759361E36A5D200F2F86D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F617597D1E36A81F00F2F86D;
+			remoteInfo = NextcloudCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,8 +107,6 @@
 /* Begin PBXFileReference section */
 		F617593E1E36A5D200F2F86D /* Nextcloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nextcloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F61759411E36A5D200F2F86D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F61759431E36A5D200F2F86D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F61759461E36A5D200F2F86D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F61759481E36A5D200F2F86D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F617594B1E36A5D200F2F86D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F617594D1E36A5D200F2F86D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +122,19 @@
 		F61759861E36A81F00F2F86D /* NextcloudCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextcloudCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F617598D1E36A81F00F2F86D /* NextcloudCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextcloudCoreTests.swift; sourceTree = "<group>"; };
 		F617598F1E36A81F00F2F86D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F617599F1E36A9E700F2F86D /* AccountListModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListModule.swift; sourceTree = "<group>"; };
+		F61759A21E36AB3100F2F86D /* ApplicationModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationModule.swift; sourceTree = "<group>"; };
+		F61759A41E36ABFB00F2F86D /* MainModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainModule.swift; sourceTree = "<group>"; };
+		F61759A71E36B10500F2F86D /* FileBrowserModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserModule.swift; sourceTree = "<group>"; };
+		F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterfaceModule.swift; sourceTree = "<group>"; };
+		F61759AE1E36C0C900F2F86D /* AccountListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListView.swift; sourceTree = "<group>"; };
+		F61759B21E36C11F00F2F86D /* Fountain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fountain.framework; path = ../Carthage/Build/iOS/Fountain.framework; sourceTree = "<group>"; };
+		F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListPresenter.swift; sourceTree = "<group>"; };
+		F61759B91E36C2E400F2F86D /* AccountListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
+		F61759BD1E36C62F00F2F86D /* AccountListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListCell.swift; sourceTree = "<group>"; };
+		F61759C11E36DCE500F2F86D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		F677BE951E37809D00BD488C /* AccountListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +144,7 @@
 			files = (
 				F61759931E36A81F00F2F86D /* NextcloudCore.framework in Frameworks */,
 				F61759701E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
+				F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +159,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */,
 				F61759641E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
+				F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +192,7 @@
 				F617597F1E36A81F00F2F86D /* NextcloudCore */,
 				F617598C1E36A81F00F2F86D /* NextcloudCoreTests */,
 				F617593F1E36A5D200F2F86D /* Products */,
+				F61759B11E36C11F00F2F86D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,20 +212,11 @@
 			isa = PBXGroup;
 			children = (
 				F61759411E36A5D200F2F86D /* AppDelegate.swift */,
-				F61759531E36A61B00F2F86D /* User Interface */,
+				F61759A21E36AB3100F2F86D /* ApplicationModule.swift */,
 				F61759541E36A62B00F2F86D /* Resources */,
 				F61759551E36A63000F2F86D /* Supporting FIles */,
 			);
 			path = Nextcloud;
-			sourceTree = "<group>";
-		};
-		F61759531E36A61B00F2F86D /* User Interface */ = {
-			isa = PBXGroup;
-			children = (
-				F61759431E36A5D200F2F86D /* ViewController.swift */,
-				F61759451E36A5D200F2F86D /* Main.storyboard */,
-			);
-			name = "User Interface";
 			sourceTree = "<group>";
 		};
 		F61759541E36A62B00F2F86D /* Resources */ = {
@@ -213,8 +239,9 @@
 		F617595C1E36A7FA00F2F86D /* NextcloudUI */ = {
 			isa = PBXGroup;
 			children = (
-				F617595D1E36A7FA00F2F86D /* NextcloudUI.h */,
-				F617595E1E36A7FA00F2F86D /* Info.plist */,
+				F617599C1E36A97B00F2F86D /* Common */,
+				F617599B1E36A97000F2F86D /* Modules */,
+				F617599D1E36A98300F2F86D /* Supporting Files */,
 			);
 			path = NextcloudUI;
 			sourceTree = "<group>";
@@ -231,8 +258,9 @@
 		F617597F1E36A81F00F2F86D /* NextcloudCore */ = {
 			isa = PBXGroup;
 			children = (
-				F61759801E36A81F00F2F86D /* NextcloudCore.h */,
-				F61759811E36A81F00F2F86D /* Info.plist */,
+				F677BE901E377C6200BD488C /* Service.swift */,
+				F61759C11E36DCE500F2F86D /* AccountManager.swift */,
+				F677BE8F1E377C3800BD488C /* Supporting Files */,
 			);
 			path = NextcloudCore;
 			sourceTree = "<group>";
@@ -244,6 +272,95 @@
 				F617598F1E36A81F00F2F86D /* Info.plist */,
 			);
 			path = NextcloudCoreTests;
+			sourceTree = "<group>";
+		};
+		F617599B1E36A97000F2F86D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F61759AC1E36BFE100F2F86D /* UserInterfaceModule.swift */,
+				F617599E1E36A99700F2F86D /* Account List */,
+				F61759A91E36B10A00F2F86D /* File Browser */,
+				F61759A61E36AC0100F2F86D /* Main */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		F617599C1E36A97B00F2F86D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		F617599D1E36A98300F2F86D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F617595D1E36A7FA00F2F86D /* NextcloudUI.h */,
+				F617595E1E36A7FA00F2F86D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F617599E1E36A99700F2F86D /* Account List */ = {
+			isa = PBXGroup;
+			children = (
+				F617599F1E36A9E700F2F86D /* AccountListModule.swift */,
+				F61759C01E36C89C00F2F86D /* Presenter */,
+				F61759BF1E36C89600F2F86D /* View */,
+			);
+			name = "Account List";
+			sourceTree = "<group>";
+		};
+		F61759A61E36AC0100F2F86D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F61759A41E36ABFB00F2F86D /* MainModule.swift */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		F61759A91E36B10A00F2F86D /* File Browser */ = {
+			isa = PBXGroup;
+			children = (
+				F61759A71E36B10500F2F86D /* FileBrowserModule.swift */,
+			);
+			name = "File Browser";
+			sourceTree = "<group>";
+		};
+		F61759B11E36C11F00F2F86D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F61759B21E36C11F00F2F86D /* Fountain.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F61759BF1E36C89600F2F86D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F61759AE1E36C0C900F2F86D /* AccountListView.swift */,
+				F61759B91E36C2E400F2F86D /* AccountListViewController.swift */,
+				F61759BD1E36C62F00F2F86D /* AccountListCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F61759C01E36C89C00F2F86D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F61759B71E36C23F00F2F86D /* AccountListPresenter.swift */,
+				F677BE951E37809D00BD488C /* AccountListDataSource.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		F677BE8F1E377C3800BD488C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F61759801E36A81F00F2F86D /* NextcloudCore.h */,
+				F61759811E36A81F00F2F86D /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +393,7 @@
 				F617593B1E36A5D200F2F86D /* Frameworks */,
 				F617593C1E36A5D200F2F86D /* Resources */,
 				F61759751E36A7FA00F2F86D /* Embed Frameworks */,
+				F61759B61E36C15900F2F86D /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -300,6 +418,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F677BE991E37914000BD488C /* PBXTargetDependency */,
 			);
 			name = NextcloudUI;
 			productName = NextcloudUI;
@@ -380,6 +499,7 @@
 					F617595A1E36A7FA00F2F86D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EJW69VRSSH;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F61759621E36A7FA00F2F86D = {
@@ -391,6 +511,7 @@
 					F617597D1E36A81F00F2F86D = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EJW69VRSSH;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F61759851E36A81F00F2F86D = {
@@ -430,7 +551,6 @@
 			files = (
 				F617594C1E36A5D200F2F86D /* LaunchScreen.storyboard in Resources */,
 				F61759491E36A5D200F2F86D /* Assets.xcassets in Resources */,
-				F61759471E36A5D200F2F86D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,12 +584,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F61759B61E36C15900F2F86D /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Fountain.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F617593A1E36A5D200F2F86D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F61759441E36A5D200F2F86D /* ViewController.swift in Sources */,
+				F61759A31E36AB3100F2F86D /* ApplicationModule.swift in Sources */,
 				F61759421E36A5D200F2F86D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +616,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61759B81E36C23F00F2F86D /* AccountListPresenter.swift in Sources */,
+				F61759BE1E36C62F00F2F86D /* AccountListCell.swift in Sources */,
+				F61759A51E36ABFB00F2F86D /* MainModule.swift in Sources */,
+				F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */,
+				F61759A81E36B10500F2F86D /* FileBrowserModule.swift in Sources */,
+				F61759AD1E36BFE100F2F86D /* UserInterfaceModule.swift in Sources */,
+				F61759A01E36A9E700F2F86D /* AccountListModule.swift in Sources */,
+				F61759BA1E36C2E400F2F86D /* AccountListViewController.swift in Sources */,
+				F61759AF1E36C0C900F2F86D /* AccountListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +640,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F61759C21E36DCE500F2F86D /* AccountManager.swift in Sources */,
+				F677BE911E377C6200BD488C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,17 +686,14 @@
 			target = F617597D1E36A81F00F2F86D /* NextcloudCore */;
 			targetProxy = F61759911E36A81F00F2F86D /* PBXContainerItemProxy */;
 		};
+		F677BE991E37914000BD488C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F617597D1E36A81F00F2F86D /* NextcloudCore */;
+			targetProxy = F677BE981E37914000BD488C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F61759451E36A5D200F2F86D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F61759461E36A5D200F2F86D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F617594A1E36A5D200F2F86D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -655,8 +801,10 @@
 		F61759511E36A5D200F2F86D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = Nextcloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -669,8 +817,10 @@
 		F61759521E36A5D200F2F86D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = Nextcloud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -684,6 +834,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -691,6 +842,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -698,6 +850,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -708,6 +861,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -715,6 +869,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -733,6 +888,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudUITests;
@@ -747,6 +903,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudUITests;
@@ -760,6 +917,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -767,6 +925,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -774,6 +933,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -784,6 +944,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -791,6 +952,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -809,6 +971,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCoreTests;
@@ -823,6 +986,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = EJW69VRSSH;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				INFOPLIST_FILE = NextcloudCoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudCoreTests;
@@ -851,6 +1015,7 @@
 				F61759521E36A5D200F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759721E36A7FA00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudUI" */ = {
 			isa = XCConfigurationList;
@@ -859,6 +1024,7 @@
 				F61759741E36A7FA00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759761E36A7FA00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudUITests" */ = {
 			isa = XCConfigurationList;
@@ -867,6 +1033,7 @@
 				F61759781E36A7FA00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759951E36A81F00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudCore" */ = {
 			isa = XCConfigurationList;
@@ -875,6 +1042,7 @@
 				F61759971E36A81F00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F61759981E36A81F00F2F86D /* Build configuration list for PBXNativeTarget "NextcloudCoreTests" */ = {
 			isa = XCConfigurationList;
@@ -883,6 +1051,7 @@
 				F617599A1E36A81F00F2F86D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
