@@ -11,6 +11,7 @@ import NextcloudCore
 
 public protocol AccountListRouter: class {
     func present(_ resource: Resource) -> Void
+    func presentNewAccount() -> Void
 }
 
 public class AccountListModule: UserInterfaceModule {

@@ -26,11 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         applicationModule = ApplicationModule(window: window!, service: service!)
         applicationModule?.present()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.init(uptimeNanoseconds: 100000000)) {
-            let account = Account(url: URL(string: "http://could.example.com")!, username: "Romeo")
-            try! self.service?.accountManager.add(account)
-        }
-        
         return true
     }
     

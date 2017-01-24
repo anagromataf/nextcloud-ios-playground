@@ -34,10 +34,16 @@ class AccountListViewController: UITableViewController, AccountListView {
         
         tableViewAdapter?.delegate = self
         tableViewAdapter?.dataSource = dataSource
+        
+        navigationItem.title = "Accounts"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAccount))
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didSelect(itemAt: indexPath)
     }
     
+    @objc private func addAccount() {
+        presenter?.addAccount()
+    }
 }

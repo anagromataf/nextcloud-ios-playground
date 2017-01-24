@@ -29,7 +29,13 @@ class AccountListPresenter {
         dataSource = AccountListDataSource(accountManager: accountManager)
     }
     
+    // MARK: - Actions
+    
     func didSelect(itemAt indexPath: IndexPath) {
         router?.present("123")
+    }
+    
+    func addAccount() {
+        router?.presentNewAccount()
     }
 }
