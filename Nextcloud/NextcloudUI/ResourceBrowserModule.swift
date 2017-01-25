@@ -13,6 +13,7 @@ public class ResourceBrowserModule: NSObject, UserInterfaceModule {
     
     public var accountListModule: UserInterfaceModule?
     public var resourceListModule: UserInterfaceModule?
+    public var resourceModule: UserInterfaceModule?
     
     public override init() {
     }
@@ -36,13 +37,15 @@ protocol ResourceBrowserNavigationControllerDelegate: UINavigationControllerDele
 
 extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController? {
-        guard
-            let viewController = resourceListModule?.makeViewController(),
-            let resourcePresenter = viewController as? ResourcePresenter
-        else {
-            return nil
+        var viewController: UIViewController? = nil
+        if resource is Folder {
+            viewController = resourceListModule?.makeViewController()
+        } else if resource is File {
+            viewController = resourceModule?.makeViewController()
         }
-        resourcePresenter.present(resource, animated: false)
+        if let resourcePresenter = viewController as? ResourcePresenter {
+            resourcePresenter.present(resource, animated: false)
+        }
         return viewController
     }
 }

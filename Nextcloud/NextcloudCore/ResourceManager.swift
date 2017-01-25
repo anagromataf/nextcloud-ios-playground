@@ -11,6 +11,19 @@ import Foundation
 public protocol Resource {
     var account: Account { get }
     var path: [String] { get }
+    var parent: Resource? { get }
+}
+
+extension Resource {
+    public var parent: Resource? {
+        if path.count > 0 {
+            var newPath = path
+            newPath.removeLast()
+            return Folder(account: account, path: newPath)
+        } else {
+            return nil
+        }
+    }
 }
 
 public struct File: Resource {
