@@ -103,5 +103,14 @@ extension FileBrowserNavigationController: ResourcePresenter {
 }
 
 class FileBrowserNavigationController: UINavigationController {
-    
+    override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
+        guard
+            let resourcePresenter = topViewController as? ResourcePresenter,
+            resourcePresenter.resource is File
+            else { return nil }
+        
+        let viewController = topViewController
+        popViewController(animated: false)
+        return viewController
+    }
 }
