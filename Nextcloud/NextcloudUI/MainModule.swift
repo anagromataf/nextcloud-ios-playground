@@ -26,6 +26,7 @@ public class MainModule: UserInterfaceModule {
 
         let splitViewController = MainViewController()
         splitViewController.delegate = self
+        splitViewController.presentsWithGesture = true
         splitViewController.viewControllers = [
             resourceBrowserViewController
         ]
@@ -44,7 +45,6 @@ class MainViewController: UISplitViewController {
     
 }
 
-
 extension MainModule: MainViewControllerDelegate {
     func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
@@ -55,6 +55,29 @@ extension MainModule: MainViewControllerDelegate {
             resourcePresenter.present(resource, animated: false)
         }
         return viewController
+    }
+    
+    public func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        if let viewController = primaryViewController.separateSecondaryViewController(for: splitViewController) {
+            viewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            let navigationController = UINavigationController(rootViewController: viewController)
+            return navigationController
+        } else {
+            return nil
+        }
+    }
+    
+    public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        guard
+            let primaryResourcePresenter = primaryViewController as? ResourcePresenter,
+            let secondaryResourcePresenter  = secondaryViewController as? ResourcePresenter,
+            let resource = secondaryResourcePresenter.resource
+        else {
+            return true
+        }
+        
+        primaryResourcePresenter.present(resource, animated: false)
+        return true
     }
 }
 
@@ -84,7 +107,9 @@ extension MainViewController: ResourcePresenter {
                     resourcePresenter.present(resource, animated: animated)
                     return
                 }
-            showDetailViewController(detailViewController, sender: nil)
+            let navigationController = UINavigationController(rootViewController: detailViewController)
+            detailViewController.navigationItem.leftBarButtonItem = displayModeButtonItem
+            showDetailViewController(navigationController, sender: nil)
             resourcePresenter.present(parent, animated: animated)
         }
     }
