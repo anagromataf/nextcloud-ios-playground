@@ -1,5 +1,5 @@
 //
-//  FileListView.swift
+//  ResourceListView.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -9,11 +9,11 @@
 import UIKit
 import Fountain
 
-protocol FileListViewModel : class {
+protocol ResourceListViewModel : class {
     var title: String? { get }
     var subtitle: String? { get }
 }
 
-protocol FileListView : class {
+protocol ResourceListView : class {
     var dataSource: FTDataSource? { get set }
 }

@@ -10,13 +10,13 @@ import UIKit
 import NextcloudUI
 import NextcloudCore
 
-public class ApplicationModule: AccountListRouter, FileListRouter {
+public class ApplicationModule: AccountListRouter, ResourceListRouter {
     
     public let window: UIWindow
     public let service: Service
     
     let accountListModule: AccountListModule
-    let fileListModule: FileListModule
+    let resourceListModule: ResourceListModule
     let fileBrowserModule: FileBrowserModule
     let mainModule: MainModule
     
@@ -25,16 +25,16 @@ public class ApplicationModule: AccountListRouter, FileListRouter {
         self.service = service
         
         accountListModule = AccountListModule(accountManager: service.accountManager)
-        fileListModule = FileListModule(accountManager: service.accountManager)
+        resourceListModule = ResourceListModule(accountManager: service.accountManager)
         fileBrowserModule = FileBrowserModule()
         mainModule = MainModule()
         
         fileBrowserModule.accountListModule = accountListModule
-        fileBrowserModule.fileListModule = fileListModule
+        fileBrowserModule.resourceListModule = resourceListModule
         mainModule.fileBrowserModule = fileBrowserModule
         
         accountListModule.router = self
-        fileListModule.router = self
+        resourceListModule.router = self
     }
     
     public func present() {
@@ -43,7 +43,7 @@ public class ApplicationModule: AccountListRouter, FileListRouter {
         window.makeKeyAndVisible()
     }
     
-    // MARK: AccountListRouter, FileListRouter
+    // MARK: AccountListRouter, ResourceListRouter
     
     public func present(_ resource: Resource) {
         guard

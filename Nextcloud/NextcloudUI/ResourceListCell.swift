@@ -1,5 +1,5 @@
 //
-//  FileListCell.swift
+//  ResourceListCell.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FileListCell: UITableViewCell {
+class ResourceListCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)

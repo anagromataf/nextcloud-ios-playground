@@ -1,5 +1,5 @@
 //
-//  FileListDataSource.swift
+//  ResourceListDataSource.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -10,7 +10,7 @@ import Foundation
 import Fountain
 import NextcloudCore
 
-class FileListDataSource: NSObject, FTDataSource {
+class ResourceListDataSource: NSObject, FTDataSource {
     
     let resourceManager: ResourceManager
     let resource: Resource
@@ -86,7 +86,7 @@ class FileListDataSource: NSObject, FTDataSource {
         _observers.remove(observer)
     }
     
-    class ViewModel: FileListViewModel {
+    class ViewModel: ResourceListViewModel {
         
         var title: String? {
             return resource.path.last

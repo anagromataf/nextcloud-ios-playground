@@ -1,5 +1,5 @@
 //
-//  FileListPresenter.swift
+//  ResourceListPresenter.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -9,11 +9,11 @@
 import Foundation
 import NextcloudCore
 
-class FileListPresenter {
+class ResourceListPresenter {
     
-    var router: FileListRouter?
+    var router: ResourceListRouter?
     
-    weak var view: FileListView? {
+    weak var view: ResourceListView? {
         didSet {
             view?.dataSource = dataSource
         }
@@ -29,11 +29,11 @@ class FileListPresenter {
             }
             
             let resourceManager = accountManager.resourceManager(for: folderResource.account)
-            dataSource = FileListDataSource(resourceManager: resourceManager, resource: folderResource)
+            dataSource = ResourceListDataSource(resourceManager: resourceManager, resource: folderResource)
         }
     }
     
-    private var dataSource: FileListDataSource? {
+    private var dataSource: ResourceListDataSource? {
         didSet {
             view?.dataSource = dataSource
         }

@@ -1,5 +1,5 @@
 //
-//  FileListModule.swift
+//  ResourceListModule.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -9,13 +9,13 @@
 import UIKit
 import NextcloudCore
 
-public protocol FileListRouter: class {
+public protocol ResourceListRouter: class {
     func present(_ resource: Resource) -> Void
 }
 
-public class FileListModule: UserInterfaceModule {
+public class ResourceListModule: UserInterfaceModule {
     
-    public weak var router: FileListRouter?
+    public weak var router: ResourceListRouter?
     
     public let accountManager: AccountManager
     public init(accountManager: AccountManager) {
@@ -23,8 +23,8 @@ public class FileListModule: UserInterfaceModule {
     }
     
     public func makeViewController() -> UIViewController {
-        let viewControler = FileListViewController()
-        let presenter = FileListPresenter(accountManager: accountManager)
+        let viewControler = ResourceListViewController()
+        let presenter = ResourceListPresenter(accountManager: accountManager)
         presenter.view = viewControler
         presenter.router = router
         viewControler.presenter = presenter
@@ -32,7 +32,7 @@ public class FileListModule: UserInterfaceModule {
     }
 }
 
-extension FileListViewController: ResourcePresenter {
+extension ResourceListViewController: ResourcePresenter {
     
     public var resource: Resource? {
         return presenter?.resource

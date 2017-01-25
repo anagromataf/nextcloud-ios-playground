@@ -12,7 +12,7 @@ import NextcloudCore
 public class FileBrowserModule: NSObject, UserInterfaceModule {
     
     public var accountListModule: UserInterfaceModule?
-    public var fileListModule: UserInterfaceModule?
+    public var resourceListModule: UserInterfaceModule?
     
     public override init() {
     }
@@ -37,7 +37,7 @@ protocol FileBrowserNavigationControllerDelegate: UINavigationControllerDelegate
 extension FileBrowserModule: FileBrowserNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController? {
         guard
-            let viewController = fileListModule?.makeViewController(),
+            let viewController = resourceListModule?.makeViewController(),
             let resourcePresenter = viewController as? ResourcePresenter
         else {
             return nil

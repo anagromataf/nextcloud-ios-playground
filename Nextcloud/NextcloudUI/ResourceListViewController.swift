@@ -1,5 +1,5 @@
 //
-//  FileListViewController.swift
+//  ResourceListViewController.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 24.01.17.
@@ -9,9 +9,9 @@
 import UIKit
 import Fountain
 
-class FileListViewController: UITableViewController, FileListView {
+class ResourceListViewController: UITableViewController, ResourceListView {
 
-    var presenter: FileListPresenter?
+    var presenter: ResourceListPresenter?
     var dataSource: FTDataSource?
     
     private var tableViewAdapter: FTTableViewAdapter?
@@ -21,11 +21,11 @@ class FileListViewController: UITableViewController, FileListView {
         
         tableViewAdapter = FTTableViewAdapter(tableView: tableView)
         
-        tableView.register(FileListCell.self, forCellReuseIdentifier: "FileListCell")
-        tableViewAdapter?.forRowsMatching(nil, useCellWithReuseIdentifier: "FileListCell") {
+        tableView.register(ResourceListCell.self, forCellReuseIdentifier: "ResourceListCell")
+        tableViewAdapter?.forRowsMatching(nil, useCellWithReuseIdentifier: "ResourceListCell") {
             (view, item, indexPath, dataSource) in
-            if  let cell = view as? FileListCell,
-                let account = item as? FileListViewModel {
+            if  let cell = view as? ResourceListCell,
+                let account = item as? ResourceListViewModel {
                 cell.textLabel?.text = account.title
                 cell.detailTextLabel?.text = account.subtitle
                 cell.accessoryType = .disclosureIndicator
