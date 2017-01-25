@@ -94,7 +94,7 @@ extension DocumentPickerViewController: ResourcePresenter {
             newViewControllers.append(rootViewController)
         }
         
-        for resource in path(for: resource) {
+        for resource in resource.resourceChain {
             let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
             if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
                 newViewControllers.append(viewController!)
@@ -122,20 +122,5 @@ extension DocumentPickerViewController: ResourcePresenter {
             resourcePresenter.present(resource, animated: false)
         }
         return viewController
-    }
-    
-    private func path(for resource: Resource) -> [Resource] {
-        var result: [Resource] = []
-        var currentPath: [String] = []
-        result.append(Folder(account: resource.account, path: currentPath))
-        for name in resource.path {
-            currentPath.append(name)
-            if currentPath != resource.path {
-                result.append(Folder(account: resource.account, path: currentPath))
-            } else {
-                result.append(resource)
-            }
-        }
-        return result
     }
 }
