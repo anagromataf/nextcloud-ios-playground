@@ -56,6 +56,28 @@ extension MainModule: MainViewControllerDelegate {
         }
         return viewController
     }
+    
+    public func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        if let viewController = primaryViewController.separateSecondaryViewController(for: splitViewController) {
+            let navigationController = UINavigationController(rootViewController: viewController)
+            return navigationController
+        } else {
+            return nil
+        }
+    }
+    
+    public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        guard
+            let primaryResourcePresenter = primaryViewController as? ResourcePresenter,
+            let secondaryResourcePresenter  = secondaryViewController as? ResourcePresenter,
+            let resource = secondaryResourcePresenter.resource
+        else {
+            return true
+        }
+        
+        primaryResourcePresenter.present(resource, animated: false)
+        return true
+    }
 }
 
 extension MainViewController: ResourcePresenter {
@@ -84,7 +106,8 @@ extension MainViewController: ResourcePresenter {
                     resourcePresenter.present(resource, animated: animated)
                     return
                 }
-            showDetailViewController(detailViewController, sender: nil)
+            let navigationController = UINavigationController(rootViewController: detailViewController)
+            showDetailViewController(navigationController, sender: nil)
             resourcePresenter.present(parent, animated: animated)
         }
     }
