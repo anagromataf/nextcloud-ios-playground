@@ -23,14 +23,26 @@ public class ResourceModule: UserInterfaceModule {
 
 class ResourceViewController: UIViewController, ResourcePresenter {
     
-    private(set) var resource: Resource?
+    private(set) var resource: Resource? {
+        didSet {
+            label.text = resource?.path.joined(separator: "/")
+        }
+    }
     
     func present(_ resource: Resource, animated: Bool) {
         self.resource = resource
     }
     
+    private let label: UILabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor.yellow
+        
+        label.translatesAutoresizingMaskIntoConstraints = true
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.textAlignment = .center
+        label.frame = view.bounds
+        view.addSubview(label)
     }
 }

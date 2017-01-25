@@ -12,6 +12,7 @@ import NextcloudCore
 public class MainModule: UserInterfaceModule {
     
     public var resourceBrowserModule: UserInterfaceModule?
+    public var resourceModule: UserInterfaceModule?
     
     public init() {
     }
@@ -23,7 +24,8 @@ public class MainModule: UserInterfaceModule {
                 return UIViewController()
         }
 
-        let splitViewController = UISplitViewController()
+        let splitViewController = MainViewController()
+        splitViewController.delegate = self
         splitViewController.viewControllers = [
             resourceBrowserViewController
         ]
@@ -34,7 +36,29 @@ public class MainModule: UserInterfaceModule {
     
 }
 
-extension UISplitViewController: ResourcePresenter {
+protocol MainViewControllerDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController?
+}
+
+class MainViewController: UISplitViewController {
+    
+}
+
+
+extension MainModule: MainViewControllerDelegate {
+    func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController? {
+        var viewController: UIViewController? = nil
+        if resource is File {
+            viewController = resourceModule?.makeViewController()
+        }
+        if let resourcePresenter = viewController as? ResourcePresenter {
+            resourcePresenter.present(resource, animated: false)
+        }
+        return viewController
+    }
+}
+
+extension MainViewController: ResourcePresenter {
     
     public var resource: Resource? {
         guard
@@ -46,11 +70,22 @@ extension UISplitViewController: ResourcePresenter {
     
     public func present(_ resource: Resource, animated: Bool) {
         guard
+            let delegate = self.delegate as? MainViewControllerDelegate,
             let resourcePresenter = viewControllers.first as? ResourcePresenter
             else { return }
         
-        resourcePresenter.present(resource, animated: animated)
+        if isCollapsed {
+            resourcePresenter.present(resource, animated: animated)
+        } else {
+            guard
+                let parent = resource.parent,
+                let detailViewController = delegate.splitViewController(self, detailViewControllerFor: resource)
+                else {
+                    resourcePresenter.present(resource, animated: animated)
+                    return
+                }
+            showDetailViewController(detailViewController, sender: nil)
+            resourcePresenter.present(parent, animated: animated)
+        }
     }
-    
 }
- 

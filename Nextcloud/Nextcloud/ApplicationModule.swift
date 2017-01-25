@@ -36,6 +36,7 @@ public class ApplicationModule: AccountListRouter, ResourceListRouter {
         resourceBrowserModule.resourceListModule = resourceListModule
         resourceBrowserModule.resourceModule = resourceModule
         mainModule.resourceBrowserModule = resourceBrowserModule
+        mainModule.resourceModule = resourceModule
         
         accountListModule.router = self
         resourceListModule.router = self
