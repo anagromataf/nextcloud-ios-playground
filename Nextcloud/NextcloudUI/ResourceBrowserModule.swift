@@ -53,7 +53,12 @@ extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
 extension ResourceBrowserNavigationController: ResourcePresenter {
     
     public var resource: Resource? {
-        return nil
+        guard
+            let resourcePresenter = topViewController as? ResourcePresenter
+            else {
+                return nil
+        }
+        return resourcePresenter.resource
     }
     
     public func present(_ resource: Resource, animated: Bool) {
@@ -72,7 +77,7 @@ extension ResourceBrowserNavigationController: ResourcePresenter {
             newViewControllers.append(rootViewController)
         }
 
-        for resource in path(for: resource) {
+        for resource in resource.resourceChain {
             let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
             if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
                 newViewControllers.append(viewController!)
@@ -87,21 +92,6 @@ extension ResourceBrowserNavigationController: ResourcePresenter {
         }
         
         setViewControllers(newViewControllers, animated: animated)
-    }
-
-    private func path(for resource: Resource) -> [Resource] {
-        var result: [Resource] = []
-        var currentPath: [String] = []
-        result.append(Folder(account: resource.account, path: currentPath))
-        for name in resource.path {
-            currentPath.append(name)
-            if currentPath != resource.path {
-                result.append(Folder(account: resource.account, path: currentPath))
-            } else {
-                result.append(resource)
-            }
-        }
-        return result
     }
 }
 

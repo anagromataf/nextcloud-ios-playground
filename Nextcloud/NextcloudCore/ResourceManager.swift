@@ -12,6 +12,8 @@ public protocol Resource {
     var account: Account { get }
     var path: [String] { get }
     var parent: Resource? { get }
+    // Retunrs an array of all resources in the path to this resource including self
+    var resourceChain: [Resource] { get }
 }
 
 extension Resource {
@@ -23,6 +25,11 @@ extension Resource {
         } else {
             return nil
         }
+    }
+    public var resourceChain: [Resource] {
+        var result: [Resource] = self.parent?.resourceChain ?? []
+        result.append(self)
+        return result
     }
 }
 
