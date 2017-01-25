@@ -26,6 +26,7 @@ public class MainModule: UserInterfaceModule {
 
         let splitViewController = MainViewController()
         splitViewController.delegate = self
+        splitViewController.presentsWithGesture = true
         splitViewController.viewControllers = [
             resourceBrowserViewController
         ]
@@ -44,7 +45,6 @@ class MainViewController: UISplitViewController {
     
 }
 
-
 extension MainModule: MainViewControllerDelegate {
     func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
@@ -59,6 +59,7 @@ extension MainModule: MainViewControllerDelegate {
     
     public func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         if let viewController = primaryViewController.separateSecondaryViewController(for: splitViewController) {
+            viewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
             let navigationController = UINavigationController(rootViewController: viewController)
             return navigationController
         } else {
@@ -107,6 +108,7 @@ extension MainViewController: ResourcePresenter {
                     return
                 }
             let navigationController = UINavigationController(rootViewController: detailViewController)
+            detailViewController.navigationItem.leftBarButtonItem = displayModeButtonItem
             showDetailViewController(navigationController, sender: nil)
             resourcePresenter.present(parent, animated: animated)
         }
