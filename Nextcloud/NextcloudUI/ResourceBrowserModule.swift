@@ -53,7 +53,12 @@ extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
 extension ResourceBrowserNavigationController: ResourcePresenter {
     
     public var resource: Resource? {
-        return nil
+        guard
+            let resourcePresenter = topViewController as? ResourcePresenter
+            else {
+                return nil
+        }
+        return resourcePresenter.resource
     }
     
     public func present(_ resource: Resource, animated: Bool) {
