@@ -11,21 +11,21 @@ import NextcloudCore
 
 public class MainModule: UserInterfaceModule {
     
-    public var fileBrowserModule: UserInterfaceModule?
+    public var resourceBrowserModule: UserInterfaceModule?
     
     public init() {
     }
     
     public func makeViewController() -> UIViewController {
         guard
-            let fileBrowserViewController = fileBrowserModule?.makeViewController()
+            let resourceBrowserViewController = resourceBrowserModule?.makeViewController()
             else {
                 return UIViewController()
         }
 
         let splitViewController = UISplitViewController()
         splitViewController.viewControllers = [
-            fileBrowserViewController
+            resourceBrowserViewController
         ]
         splitViewController.preferredDisplayMode = .allVisible
         

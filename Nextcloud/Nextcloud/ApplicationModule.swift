@@ -17,7 +17,7 @@ public class ApplicationModule: AccountListRouter, ResourceListRouter {
     
     let accountListModule: AccountListModule
     let resourceListModule: ResourceListModule
-    let fileBrowserModule: FileBrowserModule
+    let resourceBrowserModule: ResourceBrowserModule
     let mainModule: MainModule
     
     public init(window: UIWindow, service: Service) {
@@ -26,12 +26,12 @@ public class ApplicationModule: AccountListRouter, ResourceListRouter {
         
         accountListModule = AccountListModule(accountManager: service.accountManager)
         resourceListModule = ResourceListModule(accountManager: service.accountManager)
-        fileBrowserModule = FileBrowserModule()
+        resourceBrowserModule = ResourceBrowserModule()
         mainModule = MainModule()
         
-        fileBrowserModule.accountListModule = accountListModule
-        fileBrowserModule.resourceListModule = resourceListModule
-        mainModule.fileBrowserModule = fileBrowserModule
+        resourceBrowserModule.accountListModule = accountListModule
+        resourceBrowserModule.resourceListModule = resourceListModule
+        mainModule.resourceBrowserModule = resourceBrowserModule
         
         accountListModule.router = self
         resourceListModule.router = self

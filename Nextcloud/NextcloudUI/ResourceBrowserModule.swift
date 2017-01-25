@@ -1,5 +1,5 @@
 //
-//  FileBrowserModule.swift
+//  ResourceBrowserModule.swift
 //  Nextcloud
 //
 //  Created by Tobias Kraentzer on 23.01.17.
@@ -9,7 +9,7 @@
 import UIKit
 import NextcloudCore
 
-public class FileBrowserModule: NSObject, UserInterfaceModule {
+public class ResourceBrowserModule: NSObject, UserInterfaceModule {
     
     public var accountListModule: UserInterfaceModule?
     public var resourceListModule: UserInterfaceModule?
@@ -24,17 +24,17 @@ public class FileBrowserModule: NSObject, UserInterfaceModule {
                 return UIViewController()
         }
         
-        let navigationController = FileBrowserNavigationController(rootViewController: accountListViewController)
+        let navigationController = ResourceBrowserNavigationController(rootViewController: accountListViewController)
         navigationController.delegate = self
         return navigationController
     }
 }
 
-protocol FileBrowserNavigationControllerDelegate: UINavigationControllerDelegate {
+protocol ResourceBrowserNavigationControllerDelegate: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController?
 }
 
-extension FileBrowserModule: FileBrowserNavigationControllerDelegate {
+extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController? {
         guard
             let viewController = resourceListModule?.makeViewController(),
@@ -47,7 +47,7 @@ extension FileBrowserModule: FileBrowserNavigationControllerDelegate {
     }
 }
 
-extension FileBrowserNavigationController: ResourcePresenter {
+extension ResourceBrowserNavigationController: ResourcePresenter {
     
     public var resource: Resource? {
         return nil
@@ -55,7 +55,7 @@ extension FileBrowserNavigationController: ResourcePresenter {
     
     public func present(_ resource: Resource, animated: Bool) {
         guard
-            let delegate = self.delegate as? FileBrowserNavigationControllerDelegate
+            let delegate = self.delegate as? ResourceBrowserNavigationControllerDelegate
             else {
                 return
         }
@@ -102,7 +102,7 @@ extension FileBrowserNavigationController: ResourcePresenter {
     }
 }
 
-class FileBrowserNavigationController: UINavigationController {
+class ResourceBrowserNavigationController: UINavigationController {
     override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
         guard
             let resourcePresenter = topViewController as? ResourcePresenter,
