@@ -18,6 +18,13 @@ class FileStoreTests: TestCase {
 
         let store = FileStore(directory: directory)
         
+        let expectation = self.expectation(description: "Open DB")
+        store.open { (error) in
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 1.0, handler: nil)
+        
         do {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
