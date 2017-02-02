@@ -9,27 +9,28 @@
 import XCTest
 @testable import NextcloudAPI
 
-class NextcloudAPITests: XCTestCase {
+class NextcloudAPITests: XCTestCase, NextcloudAPIDelegate {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testAPI() {
+        
+        let api = NextcloudAPI(identifier: "123")
+        api.delegate = self
+        
+        let expectation = self.expectation(description: "Response")
+        api.properties(of: URL(string: "https://cloud.example.org/webdav/")!) { (resources, error) in
+            
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10.0, handler: nil)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+    // MARK: - NextcloudAPIDelegate
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func nextcloudAPI(_ api: NextcloudAPI, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if challenge.protectionSpace.host == "cloud.example.org" {
+            completionHandler(.useCredential, URLCredential(user: "username", password: "password", persistence: .forSession))
+        } else {
+            completionHandler(.rejectProtectionSpace, nil)
         }
     }
     

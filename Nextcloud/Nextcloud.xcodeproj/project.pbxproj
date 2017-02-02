@@ -37,6 +37,15 @@
 		F668B01D1E425215007FE893 /* NextcloudAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = F668B00D1E425215007FE893 /* NextcloudAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F668B0201E425215007FE893 /* NextcloudAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B00B1E425215007FE893 /* NextcloudAPI.framework */; };
 		F668B0211E425215007FE893 /* NextcloudAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F668B00B1E425215007FE893 /* NextcloudAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F668B02B1E4252B4007FE893 /* NextcloudAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F668B02A1E4252B4007FE893 /* NextcloudAPI.swift */; };
+		F668B02D1E432957007FE893 /* PureXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B02C1E432957007FE893 /* PureXML.framework */; };
+		F668B02E1E432969007FE893 /* PureXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B02C1E432957007FE893 /* PureXML.framework */; };
+		F668B02F1E43297F007FE893 /* PureXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B02C1E432957007FE893 /* PureXML.framework */; };
+		F668B0301E43298B007FE893 /* PureXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B02C1E432957007FE893 /* PureXML.framework */; };
+		F668B0311E432991007FE893 /* NextcloudAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F668B00B1E425215007FE893 /* NextcloudAPI.framework */; };
+		F668B0331E4329ED007FE893 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F668B0321E4329ED007FE893 /* Resource.swift */; };
+		F668B0351E432B6A007FE893 /* NextcloudAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F668B0341E432B6A007FE893 /* NextcloudAPIError.swift */; };
+		F668B0371E433026007FE893 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F668B0361E433026007FE893 /* String.swift */; };
 		F677BE911E377C6200BD488C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE901E377C6200BD488C /* Service.swift */; };
 		F677BE961E37809D00BD488C /* AccountListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F677BE951E37809D00BD488C /* AccountListDataSource.swift */; };
 		F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
@@ -211,6 +220,11 @@
 		F668B0131E425215007FE893 /* NextcloudAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextcloudAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F668B01A1E425215007FE893 /* NextcloudAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextcloudAPITests.swift; sourceTree = "<group>"; };
 		F668B01C1E425215007FE893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F668B02A1E4252B4007FE893 /* NextcloudAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextcloudAPI.swift; sourceTree = "<group>"; };
+		F668B02C1E432957007FE893 /* PureXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureXML.framework; path = ../Carthage/Build/iOS/PureXML.framework; sourceTree = "<group>"; };
+		F668B0321E4329ED007FE893 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		F668B0341E432B6A007FE893 /* NextcloudAPIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextcloudAPIError.swift; sourceTree = "<group>"; };
+		F668B0361E433026007FE893 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F677BE901E377C6200BD488C /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		F677BE951E37809D00BD488C /* AccountListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListDataSource.swift; sourceTree = "<group>"; };
 		F677BE9A1E37931200BD488C /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
@@ -236,6 +250,7 @@
 				F61759701E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
 				F668B0201E425215007FE893 /* NextcloudAPI.framework in Frameworks */,
 				F61759B51E36C13100F2F86D /* Fountain.framework in Frameworks */,
+				F668B02E1E432969007FE893 /* PureXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +268,7 @@
 				F677BE971E37901300BD488C /* NextcloudCore.framework in Frameworks */,
 				F61759641E36A7FA00F2F86D /* NextcloudUI.framework in Frameworks */,
 				F61759B41E36C12E00F2F86D /* Fountain.framework in Frameworks */,
+				F668B02F1E43297F007FE893 /* PureXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +283,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F668B0311E432991007FE893 /* NextcloudAPI.framework in Frameworks */,
 				F61759871E36A81F00F2F86D /* NextcloudCore.framework in Frameworks */,
+				F668B0301E43298B007FE893 /* PureXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F668B02D1E432957007FE893 /* PureXML.framework in Frameworks */,
 				F668B0141E425215007FE893 /* NextcloudAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +474,7 @@
 		F61759B11E36C11F00F2F86D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F668B02C1E432957007FE893 /* PureXML.framework */,
 				F61759B21E36C11F00F2F86D /* Fountain.framework */,
 			);
 			name = Frameworks;
@@ -482,6 +502,10 @@
 		F668B00C1E425215007FE893 /* NextcloudAPI */ = {
 			isa = PBXGroup;
 			children = (
+				F668B02A1E4252B4007FE893 /* NextcloudAPI.swift */,
+				F668B0341E432B6A007FE893 /* NextcloudAPIError.swift */,
+				F668B0321E4329ED007FE893 /* Resource.swift */,
+				F668B0361E433026007FE893 /* String.swift */,
 				F668B0281E425283007FE893 /* Supporting Files */,
 			);
 			path = NextcloudAPI;
@@ -804,6 +828,7 @@
 					F668B00A1E425215007FE893 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EJW69VRSSH;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F668B0121E425215007FE893 = {
@@ -913,6 +938,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/../Carthage/Build/iOS/Fountain.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/PureXML.framework",
 			);
 			name = Carthage;
 			outputPaths = (
@@ -986,6 +1012,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F668B02B1E4252B4007FE893 /* NextcloudAPI.swift in Sources */,
+				F668B0331E4329ED007FE893 /* Resource.swift in Sources */,
+				F668B0371E433026007FE893 /* String.swift in Sources */,
+				F668B0351E432B6A007FE893 /* NextcloudAPIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1381,6 +1411,7 @@
 		F668B0221E425215007FE893 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1395,6 +1426,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nextcloud.NextcloudAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1404,6 +1436,7 @@
 		F668B0231E425215007FE893 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
