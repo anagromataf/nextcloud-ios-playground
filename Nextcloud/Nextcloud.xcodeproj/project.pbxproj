@@ -68,6 +68,7 @@
 		F677BF091E38E5D200BD488C /* NextcloudCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617597E1E36A81F00F2F86D /* NextcloudCore.framework */; };
 		F677BF0F1E38E83A00BD488C /* NextcloudUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F617595B1E36A7FA00F2F86D /* NextcloudUI.framework */; };
 		F677BF101E38E84000BD488C /* Fountain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61759B21E36C11F00F2F86D /* Fountain.framework */; };
+		F6BFF19B1E438F4600D4A3A3 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BFF19A1E438F4600D4A3A3 /* URL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +257,7 @@
 		F677BEEA1E38B68000BD488C /* DocumentPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DocumentPicker.entitlements; sourceTree = "<group>"; };
 		F677BEEB1E38B68000BD488C /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
 		F677BEF01E38B68000BD488C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6BFF19A1E438F4600D4A3A3 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +424,7 @@
 				F677BE901E377C6200BD488C /* Service.swift */,
 				F61759C11E36DCE500F2F86D /* AccountManager.swift */,
 				F677BE9A1E37931200BD488C /* ResourceManager.swift */,
+				F6BFF19A1E438F4600D4A3A3 /* URL.swift */,
 				F668B03E1E43502A007FE893 /* Store */,
 				F677BE8F1E377C3800BD488C /* Supporting Files */,
 			);
@@ -1033,6 +1036,7 @@
 				F677BE9B1E37931200BD488C /* ResourceManager.swift in Sources */,
 				F668B03B1E4346CD007FE893 /* Store.swift in Sources */,
 				F677BE911E377C6200BD488C /* Service.swift in Sources */,
+				F6BFF19B1E438F4600D4A3A3 /* URL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

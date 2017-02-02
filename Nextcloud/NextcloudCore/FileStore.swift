@@ -33,9 +33,25 @@ struct FileStoreAccount: StoreAccount {
     }
 }
 
+struct FileStoreResource: StoreResource {
+    
+    let id: Int64
+    let path: [String]
+    let isCollection: Bool
+    
+    static func ==(lhs: FileStoreResource, rhs: FileStoreResource) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    var hashValue: Int {
+        return id.hashValue
+    }
+}
+
 class FileStore: Store {
     
     typealias Account = FileStoreAccount
+    typealias Resource = FileStoreResource
     
     private let queue: DispatchQueue = DispatchQueue(label: "FileStore")
     
@@ -155,15 +171,128 @@ class FileStore: Store {
             }
         }
     }
+    
+    func resource(of account: Account, at path: [String]) throws -> Resource? {
+        return try queue.sync {
+            guard
+                let db = self.db
+                else { throw FileStoreError.notSetup }
+            
+            var resource: Resource? = nil
+            
+            try db.transaction {
+                
+                let href = self.makeHRef(with: path)
+                
+                let query = FileStoreSchema.resource.filter(
+                    FileStoreSchema.account_id == account.id &&
+                    FileStoreSchema.href == href)
+                
+                if let row = try db.pluck(query) {
+                    let id = row.get(FileStoreSchema.id)
+                    let isCollection = row.get(FileStoreSchema.is_collection)
+                    resource = Resource(id: id, path: path, isCollection: isCollection)
+                }
+            }
+            return resource
+        }
+    }
+    
+    func contents(of account: FileStoreAccount, at path: [String]) throws -> [FileStoreResource] {
+        return try queue.sync {
+            guard
+                let db = self.db
+                else { throw FileStoreError.notSetup }
+            
+            var result: [Resource] = []
+            
+            try db.transaction {
+                
+                let href = self.makeHRef(with: path)
+                let hrefPattern = path.count == 0 ? "/%" : "\(href)/%"
+                
+                let query = FileStoreSchema.resource.filter(
+                    FileStoreSchema.account_id == account.id
+                    && FileStoreSchema.href.like(hrefPattern)
+                    && FileStoreSchema.depth == path.count + 1)
+                
+                for row in try db.prepare(query) {
+                    let id = row.get(FileStoreSchema.id)
+                    let isCollection = row.get(FileStoreSchema.is_collection)
+                    let path = self.makePath(with: row.get(FileStoreSchema.href))
+                    let resource = Resource(id: id, path: path, isCollection: isCollection)
+                    result.append(resource)
+                }
+            }
+            
+            return result
+        }
+    }
+
+    func update(_ account: Account, with updates: [StoreUpdate]) throws {
+        try queue.sync {
+            guard
+                let db = self.db
+                else { throw FileStoreError.notSetup }
+            
+            var result: [Resource] = []
+            
+            try db.transaction {
+                for update in updates {
+                    
+                    guard
+                        let path = update.url.pathComponents(relativeTo: account.url)
+                        else { throw FileStoreError.internalError }
+                    
+                    let depth = path.count
+                    let href = self.makeHRef(with: path)
+                    
+                    let id = try db.run(FileStoreSchema.resource.insert(
+                        or: .replace,
+                        FileStoreSchema.account_id <- account.id,
+                        FileStoreSchema.href <- href,
+                        FileStoreSchema.depth <- depth,
+                        FileStoreSchema.version <- update.version,
+                        FileStoreSchema.is_collection <- update.isCollection))
+                    
+                    let resource = Resource(id: id, path: path, isCollection: update.isCollection)
+                    result.append(resource)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                let center = NotificationCenter.default
+                center.post(name: Notification.Name.StoreDidRemoveAccount,
+                            object: self,
+                            userInfo: [StoreAccountKey: account,
+                                       StoreResourcesKey: result])
+            }
+        }
+    }
+    
+    private func makeHRef(with path: [String]) -> String {
+        return "/\(path.joined(separator: "/"))"
+    }
+    
+    private func makePath(with href: String) -> [String] {
+        let path: [String] = href.components(separatedBy: "/")
+        return Array(path.dropFirst(0))
+    }
 }
 
 class FileStoreSchema {
     
-    static let version: Int = 1
-    
     static let account = Table("account")
+    static let resource = Table("resource")
+    
     static let id = Expression<Int64>("id")
     static let url = Expression<URL>("url")
+    static let href = Expression<String>("href")
+    static let depth = Expression<Int>("depth")
+    static let version = Expression<String>("version")
+    static let is_collection = Expression<Bool>("is_collection")
+    static let account_id = Expression<Int64>("account_id")
+    
     
     let directory: URL
     required init(directory: URL) {
@@ -176,7 +305,7 @@ class FileStoreSchema {
         switch readCurrentVersion() {
         case 0:
             try setup(db)
-            try writeCurrentVersion(FileStoreSchema.version)
+            try writeCurrentVersion(1)
         default:
             break
         }
@@ -205,6 +334,19 @@ class FileStoreSchema {
             t.column(FileStoreSchema.id, primaryKey: true)
             t.column(FileStoreSchema.url, unique: true)
         })
+        try db.run(FileStoreSchema.account.createIndex(FileStoreSchema.url))
+        try db.run(FileStoreSchema.resource.create { t in
+            t.column(FileStoreSchema.id, primaryKey: true)
+            t.column(FileStoreSchema.account_id, references: FileStoreSchema.account, FileStoreSchema.id)
+            t.column(FileStoreSchema.href)
+            t.column(FileStoreSchema.depth)
+            t.column(FileStoreSchema.is_collection)
+            t.column(FileStoreSchema.version)
+            t.unique([FileStoreSchema.account_id, FileStoreSchema.href])
+            t.foreignKey(FileStoreSchema.account_id, references: FileStoreSchema.account, FileStoreSchema.id, update: .noAction, delete: .cascade)
+        })
+        try db.run(FileStoreSchema.resource.createIndex(FileStoreSchema.href))
+        try db.run(FileStoreSchema.resource.createIndex(FileStoreSchema.depth))
     }
     
     private var databaseLocation: URL {
