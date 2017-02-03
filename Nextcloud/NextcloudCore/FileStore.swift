@@ -39,9 +39,10 @@ struct FileStoreResource: StoreResource {
     
     let account: Account
     let path: [String]
-    let isCollection: Bool
     let dirty: Bool
-    let version: String?
+    
+    let isCollection: Bool
+    let version: String
     
     static func ==(lhs: FileStoreResource, rhs: FileStoreResource) -> Bool {
         return lhs.account == rhs.account && lhs.path == rhs.path
@@ -189,7 +190,7 @@ class FileStore: Store {
                     let isCollection = row.get(FileStoreSchema.is_collection)
                     let dirty = row.get(FileStoreSchema.dirty)
                     let version = row.get(FileStoreSchema.version)
-                    resource = Resource(account: account, path: path, isCollection: isCollection, dirty: dirty, version: version)
+                    resource = Resource(account: account, path: path, dirty: dirty, isCollection: isCollection, version: version)
                 }
             }
             return resource
@@ -219,7 +220,7 @@ class FileStore: Store {
                     let path = self.makePath(with: row.get(FileStoreSchema.href))
                     let dirty = row.get(FileStoreSchema.dirty)
                     let version = row.get(FileStoreSchema.version)
-                    let resource = Resource(account: account, path: path, isCollection: isCollection, dirty: dirty, version: version)
+                    let resource = Resource(account: account, path: path, dirty: dirty, isCollection: isCollection, version: version)
                     result.append(resource)
                 }
             }
@@ -228,11 +229,11 @@ class FileStore: Store {
         }
     }
     
-    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?) throws -> FileStoreChangeSet {
+    func update(resourceAt path: [String], of account: Account, with properties: StoreResourceProperties?) throws -> FileStoreChangeSet {
         return try update(resourceAt: path, of: account, with: properties, content: nil)
     }
     
-    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?, content: [String:ResourceProperties]?) throws -> FileStoreChangeSet {
+    func update(resourceAt path: [String], of account: Account, with properties: StoreResourceProperties?, content: [String:StoreResourceProperties]?) throws -> FileStoreChangeSet {
         return try queue.sync {
             guard
                 let db = self.db
@@ -287,7 +288,7 @@ class FileStore: Store {
         }
     }
     
-    private func updateResource(at path: [String], of account: Account, with properties: ResourceProperties, dirty: Bool = false, in db: SQLite.Connection, with changeSet: FileStoreChangeSet) throws -> Bool {
+    private func updateResource(at path: [String], of account: Account, with properties: StoreResourceProperties, dirty: Bool = false, in db: SQLite.Connection, with changeSet: FileStoreChangeSet) throws -> Bool {
         
         let href = makeHRef(with: path)
         let query = FileStoreSchema.resource
@@ -306,13 +307,13 @@ class FileStore: Store {
                 FileStoreSchema.version <- properties.version,
                 FileStoreSchema.is_collection <- properties.isCollection,
                 FileStoreSchema.dirty <- dirty))
-            let resource = Resource(account: account, path: path, isCollection: properties.isCollection, dirty: dirty, version: properties.version)
+            let resource = Resource(account: account, path: path, dirty: dirty, isCollection: properties.isCollection, version: properties.version)
             changeSet.insertedOrUpdated.append(resource)
             return true
         }
     }
     
-    private func updateCollection(at path: [String], of account: Account, with content: [String:ResourceProperties], in db: SQLite.Connection, with changeSet: FileStoreChangeSet) throws {
+    private func updateCollection(at path: [String], of account: Account, with content: [String:StoreResourceProperties], in db: SQLite.Connection, with changeSet: FileStoreChangeSet) throws {
         
         let href = self.makeHRef(with: path)
         let hrefPattern = path.count == 0 ? "/%" : "\(href)/%"
@@ -402,7 +403,7 @@ class FileStore: Store {
                     && FileStoreSchema.depth == path.count + 1)
             
             let mightBeACollection = try db.run(query.delete()) > 0
-            let resource = Resource(account: account, path: path, isCollection: mightBeACollection, dirty: false, version: nil)
+            let resource = Resource(account: account, path: path, dirty: false, isCollection: mightBeACollection, version: UUID().uuidString)
             changeSet.deleted.append(resource)
         }
     }

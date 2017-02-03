@@ -300,7 +300,7 @@ class FileStoreTests: TestCase {
         }
     }
     
-    struct Properties: ResourceProperties {
+    struct Properties: StoreResourceProperties {
         let isCollection: Bool
         let version: String
     }
