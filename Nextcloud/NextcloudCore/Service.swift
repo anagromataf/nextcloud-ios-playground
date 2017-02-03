@@ -37,8 +37,9 @@ public class Service {
         
         var _accounts: [Account] = []
         
-        func add(_ account: Account) throws -> Account {
+        func addAccount(with url: URL) throws -> Account {
             return try queue.sync {
+                let account = Account(url: url)
                 if _accounts.contains(account) {
                     throw AccountManagerError.alreadyExists
                 } else {

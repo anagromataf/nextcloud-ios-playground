@@ -108,7 +108,7 @@ class AccountListDataSource: NSObject, FTDataSource {
         }
         
         var subtitle: String? {
-            return account.username
+            return nil
         }
         
         let account: Account

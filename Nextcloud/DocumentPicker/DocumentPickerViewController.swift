@@ -21,8 +21,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController, Acc
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         service = Service()
         
-        let account = Account(url: URL(string: "https://cloud.example.com")!, username: "juliet")
-        let _ = try? service.accountManager.add(account)
+        let _ = try? service.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
         
         accountListModule = AccountListModule(accountManager: service.accountManager)
         resourceListModule = ResourceListModule(accountManager: service.accountManager)

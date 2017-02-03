@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         service = Service()
         
-        let account = Account(url: URL(string: "https://cloud.example.com")!, username: "juliet")
-        let _ = try? service?.accountManager.add(account)
+        let _ = try? service?.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
         
         let screen = UIScreen.main
         window = UIWindow(frame: screen.bounds)
