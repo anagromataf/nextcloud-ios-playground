@@ -18,11 +18,7 @@ struct FileStoreAccount: StoreAccount {
     
     let id: Int64
     let url: URL
-    
-    init(id: Int64, url: URL) {
-        self.id = id
-        self.url = url
-    }
+    let username: String
     
     static func ==(lhs: FileStoreAccount, rhs: FileStoreAccount) -> Bool {
         return lhs.id == rhs.id
@@ -124,7 +120,8 @@ class FileStore: Store {
         try db.transaction {
             let query = FileStoreSchema.account.select([
                     FileStoreSchema.id,
-                    FileStoreSchema.url
+                    FileStoreSchema.url,
+                    FileStoreSchema.username
                 ])
             for row in try db.prepare(query) {
                 let account = try self.makeAcocunt(with: row)
@@ -137,10 +134,11 @@ class FileStore: Store {
     private func makeAcocunt(with row: SQLite.Row) throws -> Account {
         let id = row.get(FileStoreSchema.id)
         let url = row.get(FileStoreSchema.url)
-        return Account(id: id, url: url)
+        let username = row.get(FileStoreSchema.username)
+        return Account(id: id, url: url, username: username)
     }
     
-    func addAccount(with url: URL) throws -> Account {
+    func addAccount(with url: URL, username: String) throws -> Account {
         return try queue.sync {
             guard
                 let db = self.db
@@ -149,9 +147,9 @@ class FileStore: Store {
             var account: Account? = nil
             try db.transaction {
                 let standardizedURL = url.standardized
-                let insert = FileStoreSchema.account.insert(FileStoreSchema.url <- standardizedURL)
+                let insert = FileStoreSchema.account.insert(FileStoreSchema.url <- standardizedURL, FileStoreSchema.username <- username)
                 let id = try db.run(insert)
-                account = Account(id: id, url: standardizedURL)
+                account = Account(id: id, url: standardizedURL, username: username)
                 
                 let properties = FileStoreResourceProperties(isCollection: true, version: UUID().uuidString)
                 let changeSet = FileStoreChangeSet()
@@ -434,6 +432,7 @@ class FileStoreSchema {
     
     static let id = Expression<Int64>("id")
     static let url = Expression<URL>("url")
+    static let username = Expression<String>("username")
     static let dirty = Expression<Bool>("dirty")
     static let href = Expression<String>("href")
     static let depth = Expression<Int>("depth")
@@ -479,7 +478,8 @@ class FileStoreSchema {
     private func setup(_ db: SQLite.Connection) throws {
         try db.run(FileStoreSchema.account.create { t in
             t.column(FileStoreSchema.id, primaryKey: true)
-            t.column(FileStoreSchema.url, unique: true)
+            t.column(FileStoreSchema.url)
+            t.column(FileStoreSchema.username)
         })
         try db.run(FileStoreSchema.account.createIndex(FileStoreSchema.url))
         try db.run(FileStoreSchema.resource.create { t in

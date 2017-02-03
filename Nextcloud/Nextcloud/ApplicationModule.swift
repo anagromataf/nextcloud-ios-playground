@@ -60,7 +60,8 @@ public class ApplicationModule: AccountListRouter, ResourceListRouter {
     public func presentNewAccount() {
         
         let title = "Add Account"
-        let message = "Enter the url of your Nextcloud server"
+        let message = "Enter the url and username of your Nextcloud server"
+        
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -71,16 +72,24 @@ public class ApplicationModule: AccountListRouter, ResourceListRouter {
             textField.autocorrectionType = .no
         }
         
+        alert.addTextField { (textField) in
+            textField.placeholder = NSLocalizedString("Username", comment: "")
+            textField.keyboardType = .emailAddress
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }
+        
         let addAction = UIAlertAction(title: NSLocalizedString("Add", comment: ""), style: .default) {
             action in
             guard
                 let urlString = alert.textFields?.first?.text,
-                let url = URL(string: urlString)
+                let url = URL(string: urlString),
+                let username = alert.textFields?.last?.text
                 else {
                     return
             }
             
-            let _ = try! self.service.accountManager.addAccount(with: url)
+            let _ = try! self.service.accountManager.addAccount(with: url, username: username)
         }
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) {

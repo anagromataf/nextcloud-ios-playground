@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NextcloudAPI
 
 public struct Resource: Equatable, Hashable {
     
@@ -35,16 +36,19 @@ public struct Resource: Equatable, Hashable {
     }
 }
 
-public class ResourceManager {
+public class ResourceManager: NextcloudAPIDelegate {
 
     let store: FileStore
     let account: Account
     let queue: DispatchQueue
+    let api: NextcloudAPI
     
     init(store: FileStore, account: Account) {
         self.store = store
         self.account = account
         self.queue = DispatchQueue(label: "ResourceManager")
+        self.api = NextcloudAPI(identifier: account.url.absoluteString)
+        self.api.delegate = self
     }
     
     public func resource(at path: [String]) throws -> Resource? {
@@ -71,6 +75,15 @@ public class ResourceManager {
     }
     
     private func updateResource(at path: [String], completion: ((Error?) -> Void)?) {
+        let url = account.url.appendingPathComponent(path.joined(separator: "/"))
+        self.api.properties(of: url) { (result, error) in
+            
+        }
+    }
+    
+    // MARK: - NextcloudAPIDelegate
+    
+    public func nextcloudAPI(_ api: NextcloudAPI, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
     }
 }

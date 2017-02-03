@@ -10,6 +10,7 @@ import Foundation
 import NextcloudAPI
 
 protocol StoreAccount: Equatable, Hashable {
+    var username: String { get }
     var url: URL { get }
 }
 
@@ -37,7 +38,7 @@ protocol Store {
     associatedtype ChangeSet: StoreChangeSet
     
     var accounts: [Account] { get }
-    func addAccount(with url: URL) throws -> Account
+    func addAccount(with url: URL, username: String) throws -> Account
     func remove(_ account: Account) throws -> Void
     
     func resource(of account: Account, at path: [String]) throws -> Resource?

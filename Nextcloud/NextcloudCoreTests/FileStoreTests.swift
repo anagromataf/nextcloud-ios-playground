@@ -39,7 +39,7 @@ class FileStoreTests: TestCase {
 
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             XCTAssertEqual(account.url, url)
             
             XCTAssertTrue(store.accounts.contains(account))
@@ -59,7 +59,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             XCTAssertEqual(account.url, url)
             
             _ = try store.update(resourceAt: ["a"], of: account, with: Properties(isCollection: false, version: "123"))
@@ -79,7 +79,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
             let path = ["a", "b", "c"]
             let properties = Properties(isCollection: false, version: "123")
@@ -129,7 +129,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
             _ = try store.update(resourceAt: ["a", "b", "c", "x", "y"], of: account, with: Properties(isCollection: false, version: "123"))
             _ = try store.update(resourceAt: ["a", "b", "c", "3", "x"], of: account, with: Properties(isCollection: true, version: "123"))
@@ -190,7 +190,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
             _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
             _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
@@ -216,7 +216,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
             _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
             _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
@@ -261,7 +261,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
             _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
             _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: false, version: "567"))
@@ -284,7 +284,7 @@ class FileStoreTests: TestCase {
         
         do {
             let url = URL(string: "https://example.com/api/")!
-            let account: FileStore.Account = try store.addAccount(with: url)
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
 
             _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
             let changeSet = try store.update(resourceAt: ["a", "b"], of: account, with: nil)

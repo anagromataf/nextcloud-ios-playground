@@ -23,6 +23,10 @@ public class Account: Equatable, Hashable {
         return storeAccount.url
     }
     
+    public var username: String {
+        return storeAccount.username
+    }
+    
     public static func ==(lhs: Account, rhs: Account) -> Bool {
         return lhs.storeAccount == rhs.storeAccount
     }
@@ -51,8 +55,8 @@ public class AccountManager {
         }
     }
     
-    public func addAccount(with url: URL) throws -> Account {
-        let storeAccount = try store.addAccount(with: url)
+    public func addAccount(with url: URL, username: String) throws -> Account {
+        let storeAccount = try store.addAccount(with: url, username: username)
         let account = Account(storeAccount: storeAccount)
         
         let center = NotificationCenter.default
@@ -62,20 +66,23 @@ public class AccountManager {
     }
     
     public func remove(_ account: Account) throws {
-        try store.remove(account.storeAccount)
+        try queue.sync {
+            resourceManagers[account] = nil
+            try store.remove(account.storeAccount)
+        }
         let center = NotificationCenter.default
         center.post(name: Notification.Name.AccountManagerDidChange, object: self)
     }
     
-    private let resourceManagers: NSMapTable<Account, ResourceManager> = NSMapTable<Account, ResourceManager>.strongToWeakObjects()
+    private var resourceManagers: [Account:ResourceManager] = [:]
     
     public func resourceManager(for account: Account) -> ResourceManager {
         return queue.sync  {
-            if let manager = resourceManagers.object(forKey: account) {
+            if let manager = resourceManagers[account] {
                 return manager
             } else {
                 let manager = ResourceManager(store: store, account: account)
-                resourceManagers.setObject(manager, forKey: account)
+                resourceManagers[account] = manager
                 return manager
             }
         }
