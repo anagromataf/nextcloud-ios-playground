@@ -38,9 +38,9 @@ protocol ResourceBrowserNavigationControllerDelegate: UINavigationControllerDele
 extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is Directory {
+        if resource.isCollection == true {
             viewController = resourceListModule?.makeViewController()
-        } else if resource is Document {
+        } else {
             viewController = resourceModule?.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {
@@ -76,7 +76,7 @@ class ResourceBrowserNavigationController: UINavigationController {
     override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
         guard
             let resourcePresenter = topViewController as? ResourcePresenter,
-            resourcePresenter.resource is Document
+            resourcePresenter.resource?.isCollection == false
             else { return nil }
         
         let viewController = topViewController

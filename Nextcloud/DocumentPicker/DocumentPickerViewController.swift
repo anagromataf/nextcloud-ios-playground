@@ -101,9 +101,9 @@ extension DocumentPickerViewController: ResourcePresenter {
     
     private func makeViewController(for resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is Directory {
+        if resource.isCollection == true {
             viewController = resourceListModule.makeViewController()
-        } else if resource is Document {
+        } else {
             viewController = resourceModule.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {

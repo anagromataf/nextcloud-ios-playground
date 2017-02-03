@@ -53,6 +53,11 @@ struct FileStoreResource: StoreResource {
     }
 }
 
+struct FileStoreResourceProperties: StoreResourceProperties {
+    let isCollection: Bool
+    let version: String
+}
+
 class FileStoreChangeSet: StoreChangeSet {
     typealias Resource = FileStoreResource
     var insertedOrUpdated: [Resource] = []
@@ -147,6 +152,10 @@ class FileStore: Store {
                 let insert = FileStoreSchema.account.insert(FileStoreSchema.url <- standardizedURL)
                 let id = try db.run(insert)
                 account = Account(id: id, url: standardizedURL)
+                
+                let properties = FileStoreResourceProperties(isCollection: true, version: UUID().uuidString)
+                let changeSet = FileStoreChangeSet()
+                _ = try self.updateResource(at: [], of: account!, with: properties, dirty: true, in: db, with: changeSet)
             }
             
             guard

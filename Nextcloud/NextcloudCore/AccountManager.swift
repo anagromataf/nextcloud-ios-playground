@@ -12,7 +12,7 @@ public enum AccountManagerError: Error {
     case alreadyExists
 }
 
-public struct Account: Equatable, Hashable {
+public class Account: Equatable, Hashable {
     
     let storeAccount: FileStore.Account
     init(storeAccount: FileStore.Account) {
@@ -38,9 +38,11 @@ public extension Notification.Name {
 
 public class AccountManager {
 
+    let queue: DispatchQueue
     let store: FileStore
     init(store: FileStore) {
         self.store = store
+        self.queue = DispatchQueue(label: "AccountManager")
     }
     
     public var accounts: [Account] {
@@ -65,7 +67,17 @@ public class AccountManager {
         center.post(name: Notification.Name.AccountManagerDidChange, object: self)
     }
     
+    private let resourceManagers: NSMapTable<Account, ResourceManager> = NSMapTable<Account, ResourceManager>.strongToWeakObjects()
+    
     public func resourceManager(for account: Account) -> ResourceManager {
-        return Service.DummyResourceManager(account: account)
+        return queue.sync  {
+            if let manager = resourceManagers.object(forKey: account) {
+                return manager
+            } else {
+                let manager = ResourceManager(store: store, account: account)
+                resourceManagers.setObject(manager, forKey: account)
+                return manager
+            }
+        }
     }
 }

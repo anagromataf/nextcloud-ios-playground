@@ -48,7 +48,7 @@ class MainViewController: UISplitViewController {
 extension MainModule: MainViewControllerDelegate {
     func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is Document {
+        if resource.isCollection == false {
             viewController = resourceModule?.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {

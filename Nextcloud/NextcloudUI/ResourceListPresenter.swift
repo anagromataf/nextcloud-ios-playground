@@ -22,14 +22,14 @@ class ResourceListPresenter {
     var resource: Resource? {
         didSet {
             guard
-                let collection = resource as? Directory
+                let resource = self.resource
                 else {
                     dataSource = nil
                     return
             }
             
-            let resourceManager = accountManager.resourceManager(for: collection.account)
-            dataSource = ResourceListDataSource(resourceManager: resourceManager, resource: collection)
+            let resourceManager = accountManager.resourceManager(for: resource.account)
+            dataSource = ResourceListDataSource(resourceManager: resourceManager, resource: resource)
         }
     }
     
