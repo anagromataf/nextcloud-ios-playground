@@ -14,18 +14,21 @@ public enum AccountManagerError: Error {
 
 public struct Account: Equatable, Hashable {
     
-    public let url: URL
+    let storeAccount: FileStore.Account
+    init(storeAccount: FileStore.Account) {
+        self.storeAccount = storeAccount
+    }
     
-    init(url: URL) {
-        self.url = url
+    public var url: URL {
+        return storeAccount.url
     }
     
     public static func ==(lhs: Account, rhs: Account) -> Bool {
-        return lhs.url == rhs.url
+        return lhs.storeAccount == rhs.storeAccount
     }
     
     public var hashValue: Int {
-        return url.hashValue
+        return storeAccount.hashValue
     }
 }
 
@@ -33,11 +36,36 @@ public extension Notification.Name {
     static let AccountManagerDidChange = Notification.Name(rawValue: "AccountManagerDidChange")
 }
 
-public protocol AccountManager {
+public class AccountManager {
+
+    let store: FileStore
+    init(store: FileStore) {
+        self.store = store
+    }
     
-    func addAccount(with url: URL) throws -> Account
-    func remove(_ account: Account) throws -> Void
-    func accounts() throws -> [Account]
+    public var accounts: [Account] {
+        return store.accounts.map { (storeAccount) in
+            return Account(storeAccount: storeAccount)
+        }
+    }
     
-    func resourceManager(for account: Account) -> ResourceManager
+    public func addAccount(with url: URL) throws -> Account {
+        let storeAccount = try store.addAccount(with: url)
+        let account = Account(storeAccount: storeAccount)
+        
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+        
+        return account
+    }
+    
+    public func remove(_ account: Account) throws {
+        try store.remove(account.storeAccount)
+        let center = NotificationCenter.default
+        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
+    }
+    
+    public func resourceManager(for account: Account) -> ResourceManager {
+        return Service.DummyResourceManager(account: account)
+    }
 }

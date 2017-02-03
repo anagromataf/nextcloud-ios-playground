@@ -18,15 +18,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        service = Service()
-        
-        let _ = try? service?.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
+        let fileManager = FileManager.default
+        let directory = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.nextcloud.Nextcloud")!
+        service = Service(directory: directory)
+        service?.start { (error) in
+            DispatchQueue.main.async {
+                if error != nil {
+                    NSLog("Failed to setup service: \(error)")
+                } else {
+                    let screen = UIScreen.main
+                    self.window = UIWindow(frame: screen.bounds)
+                    self.window?.screen = screen
+                    self.applicationModule = ApplicationModule(window: self.window!, service: self.service!)
+                    self.applicationModule?.present()
+                }
+            }
+        }
         
         let screen = UIScreen.main
-        window = UIWindow(frame: screen.bounds)
-        window?.screen = screen
-        applicationModule = ApplicationModule(window: window!, service: service!)
-        applicationModule?.present()
+        self.window = UIWindow(frame: screen.bounds)
+        self.window?.screen = screen
         
         return true
     }

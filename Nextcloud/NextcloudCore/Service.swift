@@ -13,8 +13,15 @@ public class Service {
     
     public private(set) var accountManager: AccountManager
     
-    public init() {
-        self.accountManager = DummyAccountManager()
+    private let store: FileStore
+    
+    public init(directory: URL) {
+        self.store = FileStore(directory: directory)
+        self.accountManager = AccountManager(store: store)
+    }
+    
+    public func start(completion: ((Error?)->Void)?) {
+        store.open(completion: completion)
     }
     
     class DummyResourceManager: ResourceManager {
@@ -48,51 +55,6 @@ public class Service {
             path.append("foo")
             contents.append(D(account: account, path: path))
             return contents
-        }
-    }
-    
-    class DummyAccountManager: AccountManager {
-        
-        let queue: DispatchQueue = DispatchQueue(label: "DummyAccountManager")
-        
-        var _accounts: [Account] = []
-        
-        func addAccount(with url: URL) throws -> Account {
-            return try queue.sync {
-                let account = Account(url: url)
-                if _accounts.contains(account) {
-                    throw AccountManagerError.alreadyExists
-                } else {
-                    _accounts.append(account)
-                    DispatchQueue.main.async {
-                        let center = NotificationCenter.default
-                        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
-                    }
-                    return account
-                }
-            }
-        }
-        
-        func remove(_ account: Account) throws -> Void {
-            queue.sync {
-                if let index = _accounts.index(of: account) {
-                    _accounts.remove(at: index)
-                    DispatchQueue.main.async {
-                        let center = NotificationCenter.default
-                        center.post(name: Notification.Name.AccountManagerDidChange, object: self)
-                    }
-                }
-            }
-        }
-
-        func accounts() throws -> [Account] {
-            return queue.sync {
-                return _accounts
-            }
-        }
-        
-        func resourceManager(for account: Account) -> ResourceManager {
-            return DummyResourceManager(account: account)
         }
     }
 }

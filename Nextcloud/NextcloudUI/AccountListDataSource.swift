@@ -40,17 +40,13 @@ class AccountListDataSource: NSObject, FTDataSource {
     private var accounts: [Account] = []
     
     private func reload() {
-        do {
-            let accounts = try accountManager.accounts()
-            for observer in _observers.allObjects {
-                observer.dataSourceWillReset?(self)
-            }
-            self.accounts = accounts
-            for observer in _observers.allObjects {
-                observer.dataSourceDidReset?(self)
-            }
-        } catch {
-            NSLog("Failed to get accounts: \(error)")
+        let accounts = accountManager.accounts
+        for observer in _observers.allObjects {
+            observer.dataSourceWillReset?(self)
+        }
+        self.accounts = accounts
+        for observer in _observers.allObjects {
+            observer.dataSourceDidReset?(self)
         }
     }
     
