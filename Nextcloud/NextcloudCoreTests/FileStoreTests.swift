@@ -52,6 +52,26 @@ class FileStoreTests: TestCase {
         }
     }
     
+    func testRemoveAccount() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+            XCTAssertEqual(account.url, url)
+            
+            _ = try store.update(resourceAt: ["a"], of: account, with: Properties(isCollection: false, version: "123"))
+            
+            try store.remove(account)
+            XCTAssertNil(try store.resource(of: account, at: ["a"]))
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
     func testInsertResource() {
         guard
             let store = self.store

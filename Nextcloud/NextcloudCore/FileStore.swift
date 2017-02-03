@@ -163,8 +163,8 @@ class FileStore: Store {
                 else { throw FileStoreError.notSetup }
             
             try db.transaction {
-                let delete = FileStoreSchema.account.filter(FileStoreSchema.id == account.id).delete()
-                try db.run(delete)
+                try db.run(FileStoreSchema.account.filter(FileStoreSchema.id == account.id).delete())
+                try db.run(FileStoreSchema.resource.filter(FileStoreSchema.account_id == account.id).delete())
             }
         }
     }
@@ -473,14 +473,14 @@ class FileStoreSchema {
         })
         try db.run(FileStoreSchema.account.createIndex(FileStoreSchema.url))
         try db.run(FileStoreSchema.resource.create { t in
-            t.column(FileStoreSchema.account_id, references: FileStoreSchema.account, FileStoreSchema.id)
-            t.column(FileStoreSchema.href, primaryKey: true)
+            t.column(FileStoreSchema.account_id)
+            t.column(FileStoreSchema.href)
             t.column(FileStoreSchema.depth)
             t.column(FileStoreSchema.is_collection)
             t.column(FileStoreSchema.version)
             t.column(FileStoreSchema.dirty)
             t.unique([FileStoreSchema.account_id, FileStoreSchema.href])
-            t.foreignKey(FileStoreSchema.account_id, references: FileStoreSchema.account, FileStoreSchema.id, update: .noAction, delete: .cascade)
+            t.foreignKey(FileStoreSchema.account_id, references: FileStoreSchema.account, FileStoreSchema.id, update: .cascade, delete: .cascade)
         })
         try db.run(FileStoreSchema.resource.createIndex(FileStoreSchema.href))
         try db.run(FileStoreSchema.resource.createIndex(FileStoreSchema.depth))
