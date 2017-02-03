@@ -21,8 +21,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController, Acc
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         service = Service()
         
-        let account = Account(url: URL(string: "https://cloud.example.com")!, username: "juliet")
-        let _ = try? service.accountManager.add(account)
+        let _ = try? service.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
         
         accountListModule = AccountListModule(accountManager: service.accountManager)
         resourceListModule = ResourceListModule(accountManager: service.accountManager)
@@ -94,28 +93,28 @@ extension DocumentPickerViewController: ResourcePresenter {
             newViewControllers.append(rootViewController)
         }
         
-        for resource in resource.resourceChain {
-            let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
-            if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
-                newViewControllers.append(viewController!)
-            } else {
-                viewControllers.removeAll()
-                if let viewController = makeViewController(for: resource) {
-                    newViewControllers.append(viewController)
-                } else {
-                    return
-                }
-            }
-        }
+//        for resource in resource.resourceChain {
+//            let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
+//            if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
+//                newViewControllers.append(viewController!)
+//            } else {
+//                viewControllers.removeAll()
+//                if let viewController = makeViewController(for: resource) {
+//                    newViewControllers.append(viewController)
+//                } else {
+//                    return
+//                }
+//            }
+//        }
         
-        navigationController.setViewControllers(newViewControllers, animated: animated)
+        navigationController.setViewControllers(viewControllers, animated: animated)
     }
     
     private func makeViewController(for resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is Folder {
+        if resource is Directory {
             viewController = resourceListModule.makeViewController()
-        } else if resource is File {
+        } else if resource is Document {
             viewController = resourceModule.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {

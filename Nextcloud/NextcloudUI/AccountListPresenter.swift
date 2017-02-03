@@ -32,10 +32,16 @@ class AccountListPresenter {
     // MARK: - Actions
     
     func didSelect(itemAt indexPath: IndexPath) {
-        guard
-            let account = dataSource.account(at: indexPath)
-            else { return }
-        router?.present(Folder(account: account, path: []))
+        do {
+            guard
+                let account = dataSource.account(at: indexPath),
+                let resource = try accountManager.resourceManager(for: account).resource(at: [])
+                else { return }
+            
+            router?.present(resource)
+        } catch {
+            NSLog("Faield to get resource: \(error)")
+        }
     }
     
     func addAccount() {

@@ -26,7 +26,7 @@ class ResourceListDataSource: NSObject, FTDataSource {
     
     private func reload() {
         do {
-            let resources = try resourceManager.contents(of: resource)
+            let resources = try resourceManager.content(at: resource.path)
             for observer in _observers.allObjects {
                 observer.dataSourceWillReset?(self)
             }

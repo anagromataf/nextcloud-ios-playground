@@ -48,7 +48,7 @@ class MainViewController: UISplitViewController {
 extension MainModule: MainViewControllerDelegate {
     func splitViewController(_ svc: UISplitViewController, detailViewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is File {
+        if resource is Document {
             viewController = resourceModule?.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {
@@ -97,20 +97,12 @@ extension MainViewController: ResourcePresenter {
             let resourcePresenter = viewControllers.first as? ResourcePresenter
             else { return }
         
-        if isCollapsed {
-            resourcePresenter.present(resource, animated: animated)
-        } else {
-            guard
-                let parent = resource.parent,
-                let detailViewController = delegate.splitViewController(self, detailViewControllerFor: resource)
-                else {
-                    resourcePresenter.present(resource, animated: animated)
-                    return
-                }
+        if isCollapsed == false, let detailViewController = delegate.splitViewController(self, detailViewControllerFor: resource) {
             let navigationController = UINavigationController(rootViewController: detailViewController)
             detailViewController.navigationItem.leftBarButtonItem = displayModeButtonItem
             showDetailViewController(navigationController, sender: nil)
-            resourcePresenter.present(parent, animated: animated)
+        } else {
+            resourcePresenter.present(resource, animated: animated)
         }
     }
 }

@@ -13,17 +13,19 @@ public enum AccountManagerError: Error {
 }
 
 public struct Account: Equatable, Hashable {
+    
     public let url: URL
-    public let username: String
-    public init(url: URL, username: String) {
+    
+    init(url: URL) {
         self.url = url
-        self.username = username
     }
+    
     public static func ==(lhs: Account, rhs: Account) -> Bool {
-        return lhs.url == rhs.url && lhs.username == rhs.username
+        return lhs.url == rhs.url
     }
+    
     public var hashValue: Int {
-        return url.hashValue + username.hashValue
+        return url.hashValue
     }
 }
 
@@ -32,8 +34,10 @@ public extension Notification.Name {
 }
 
 public protocol AccountManager {
-    func add(_ account: Account) throws -> Account
+    
+    func addAccount(with url: URL) throws -> Account
     func remove(_ account: Account) throws -> Void
     func accounts() throws -> [Account]
+    
     func resourceManager(for account: Account) -> ResourceManager
 }
