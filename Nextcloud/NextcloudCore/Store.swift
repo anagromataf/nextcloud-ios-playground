@@ -47,11 +47,3 @@ protocol Store {
     func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?) throws -> ChangeSet
     func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?, content: [String:ResourceProperties]?) throws -> ChangeSet
 }
-
-let StoreAccountKey = "StoreAccountKey"
-let StoreResourcesKey = "StoreResourcesKey"
-
-extension Notification.Name {
-    static let StoreDidAddAccount = Notification.Name(rawValue: "NextcloudCore.StoreDidAddAccount")
-    static let StoreDidRemoveAccount = Notification.Name(rawValue: "NextcloudCore.StoreDidRemoveAccount")
-}

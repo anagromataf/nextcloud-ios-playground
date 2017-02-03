@@ -152,13 +152,6 @@ class FileStore: Store {
                 let result = account
                 else { throw FileStoreError.internalError }
             
-            DispatchQueue.main.async {
-                let center = NotificationCenter.default
-                center.post(name: Notification.Name.StoreDidAddAccount,
-                            object: self,
-                            userInfo: [StoreAccountKey: result])
-            }
-            
             return result
         }
     }
@@ -172,13 +165,6 @@ class FileStore: Store {
             try db.transaction {
                 let delete = FileStoreSchema.account.filter(FileStoreSchema.id == account.id).delete()
                 try db.run(delete)
-            }
-            
-            DispatchQueue.main.async {
-                let center = NotificationCenter.default
-                center.post(name: Notification.Name.StoreDidRemoveAccount,
-                            object: self,
-                            userInfo: [StoreAccountKey: account])
             }
         }
     }
