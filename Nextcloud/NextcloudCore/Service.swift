@@ -13,8 +13,15 @@ public class Service {
     
     public private(set) var accountManager: AccountManager
     
-    public init() {
+    private let store: FileStore
+    
+    public init(directory: URL) {
+        self.store = FileStore(directory: directory)
         self.accountManager = DummyAccountManager()
+    }
+    
+    public func start(completion: ((Error?)->Void)?) {
+        store.open(completion: completion)
     }
     
     class DummyResourceManager: ResourceManager {

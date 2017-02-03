@@ -14,23 +14,37 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController, Acc
 
     let service: Service
     
-    let accountListModule: AccountListModule
-    let resourceListModule: ResourceListModule
-    let resourceModule: ResourceModule
+    var accountListModule: AccountListModule!
+    var resourceListModule: ResourceListModule!
+    var resourceModule: ResourceModule!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        service = Service()
         
-        let _ = try? service.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
-        
-        accountListModule = AccountListModule(accountManager: service.accountManager)
-        resourceListModule = ResourceListModule(accountManager: service.accountManager)
-        resourceModule = ResourceModule()
-        
+        let fileManager = FileManager.default
+        let directory = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.nextcloud.Nextcloud")!
+        service = Service(directory: directory)
+
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        accountListModule.router = self
-        resourceListModule.router = self
+        service.start { [weak self] (error) in
+            DispatchQueue.main.async {
+                guard let this = self else { return }
+                if error != nil {
+                    NSLog("Failed to setup service: \(error)")
+                } else {
+                    this.accountListModule = AccountListModule(accountManager: this.service.accountManager)
+                    this.resourceListModule = ResourceListModule(accountManager: this.service.accountManager)
+                    this.resourceModule = ResourceModule()
+                    
+                    let _ = try? this.service.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
+                    
+                    this.accountListModule.router = this
+                    this.resourceListModule.router = this
+                    
+                    this.rootViewController = this.accountListModule.makeViewController()
+                }
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +52,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController, Acc
     }
     
     override func prepareForPresentation(in mode: UIDocumentPickerMode) {
-        rootViewController = accountListModule.makeViewController()
+        
     }
     
     // MARK: Root View Controller
@@ -79,35 +93,12 @@ extension DocumentPickerViewController: ResourcePresenter {
     
     public func present(_ resource: Resource, animated: Bool) {
         guard
-            let navigationController = self.navigationController
+            let navigationController = self.navigationController,
+            let viewController = makeViewController(for: resource)
             else {
                 return
         }
-        
-        var viewControllers = navigationController.viewControllers
-        var newViewControllers: [UIViewController] = []
-        
-        if viewControllers.count > 0 {
-            // The root view controller is alwasy the account list and should always be to root
-            let rootViewController = viewControllers.removeFirst()
-            newViewControllers.append(rootViewController)
-        }
-        
-//        for resource in resource.resourceChain {
-//            let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
-//            if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
-//                newViewControllers.append(viewController!)
-//            } else {
-//                viewControllers.removeAll()
-//                if let viewController = makeViewController(for: resource) {
-//                    newViewControllers.append(viewController)
-//                } else {
-//                    return
-//                }
-//            }
-//        }
-        
-        navigationController.setViewControllers(viewControllers, animated: animated)
+        navigationController.pushViewController(viewController, animated: animated)
     }
     
     private func makeViewController(for resource: Resource) -> UIViewController? {
