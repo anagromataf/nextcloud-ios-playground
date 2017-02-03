@@ -27,6 +27,12 @@ protocol ResourceProperties {
     var version: String { get }
 }
 
+protocol StoreChangeSet {
+    associatedtype Resource: StoreResource
+    var insertedOrUpdated: [Resource] { get }
+    var deleted: [Resource] { get }
+}
+
 protocol Store {
     associatedtype Account: StoreAccount
     var accounts: [Account] { get }
@@ -37,19 +43,15 @@ protocol Store {
     func resource(of account: Account, at path: [String]) throws -> Resource?
     func contents(of account: Account, at path: [String]) throws -> [Resource]
     
-    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?) throws -> Void
-    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?, content: [String:ResourceProperties]?) throws -> Void
+    associatedtype ChangeSet: StoreChangeSet
+    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?) throws -> ChangeSet
+    func update(resourceAt path: [String], of account: Account, with properties: ResourceProperties?, content: [String:ResourceProperties]?) throws -> ChangeSet
 }
 
 let StoreAccountKey = "StoreAccountKey"
 let StoreResourcesKey = "StoreResourcesKey"
 
-let StoreDeletedResourcesKey = "StoreDeletedResourcesKey"
-let StoreUpdatedResourcesKey = "StoreUpdatedResourcesKey"
-
-
 extension Notification.Name {
     static let StoreDidAddAccount = Notification.Name(rawValue: "NextcloudCore.StoreDidAddAccount")
     static let StoreDidRemoveAccount = Notification.Name(rawValue: "NextcloudCore.StoreDidRemoveAccount")
-    static let StoreDidUpdateResources = Notification.Name(rawValue: "NextcloudCore.StoreDidUpdateResources")
 }

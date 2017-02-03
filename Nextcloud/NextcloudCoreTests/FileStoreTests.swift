@@ -63,7 +63,9 @@ class FileStoreTests: TestCase {
             
             let path = ["a", "b", "c"]
             let properties = Properties(isCollection: false, version: "123")
-            try store.update(resourceAt: path, of: account, with: properties)
+            let changeSet = try store.update(resourceAt: path, of: account, with: properties)
+            
+            XCTAssertEqual(changeSet.insertedOrUpdated.count, 1)
             
             let resource = try store.resource(of: account, at: path)
             XCTAssertNotNil(resource)
@@ -109,9 +111,9 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
             
-            try store.update(resourceAt: ["a", "b", "c", "x", "y"], of: account, with: Properties(isCollection: false, version: "123"))
-            try store.update(resourceAt: ["a", "b", "c", "3", "x"], of: account, with: Properties(isCollection: true, version: "123"))
-            try store.update(resourceAt: ["a", "b", "c", "3"], of: account, with: Properties(isCollection: true, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b", "c", "x", "y"], of: account, with: Properties(isCollection: false, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b", "c", "3", "x"], of: account, with: Properties(isCollection: true, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b", "c", "3"], of: account, with: Properties(isCollection: true, version: "123"))
             
             let path = ["a", "b", "c"]
             let properties = Properties(isCollection: true, version: "123")
@@ -120,8 +122,11 @@ class FileStoreTests: TestCase {
                 "2": Properties(isCollection: false, version: "b"),
                 "3": Properties(isCollection: false, version: "c")
             ]
-            try store.update(resourceAt: path, of: account, with: properties, content: content)
+            let changeSet = try store.update(resourceAt: path, of: account, with: properties, content: content)
 
+            XCTAssertEqual(changeSet.insertedOrUpdated.count, 4)
+            XCTAssertEqual(changeSet.deleted.count, 1)
+            
             let resource = try store.resource(of: account, at: path)
             XCTAssertNotNil(resource)
             if let resource = resource {
@@ -167,8 +172,8 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
             
-            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
-            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
+            _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
             
             let resource = try store.resource(of: account, at: ["a", "b"])
             XCTAssertNotNil(resource)
@@ -193,9 +198,9 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
             
-            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
-            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
-            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "888"))
+            _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
+            _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "888"))
             
             let resource = try store.resource(of: account, at: ["a", "b", "c"])
             XCTAssertNotNil(resource)
@@ -238,8 +243,8 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
             
-            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
-            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: false, version: "567"))
+            _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            _ = try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: false, version: "567"))
             
             let resource = try store.resource(of: account, at: ["a", "b", "c"])
             XCTAssertNil(resource)
@@ -261,8 +266,11 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
 
-            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
-            try store.update(resourceAt: ["a", "b"], of: account, with: nil)
+            _ = try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            let changeSet = try store.update(resourceAt: ["a", "b"], of: account, with: nil)
+            
+            XCTAssertEqual(changeSet.insertedOrUpdated.count, 0)
+            XCTAssertEqual(changeSet.deleted.count, 1)
             
             XCTAssertNil(try store.resource(of: account, at: ["a", "b", "c"]))
             XCTAssertNil(try store.resource(of: account, at: ["a", "b"]))
