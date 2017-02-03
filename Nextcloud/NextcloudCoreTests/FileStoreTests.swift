@@ -52,7 +52,7 @@ class FileStoreTests: TestCase {
         }
     }
     
-    func testUpdateStore() {
+    func testInsertResource() {
         guard
             let store = self.store
             else { XCTFail(); return }
@@ -61,32 +61,218 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url)
             
-            let updates = [
-                Update(url: url.appendingPathComponent("foo/bar.baz"), isCollection: false, version: "123"),
-                Update(url: url.appendingPathComponent("foo/a"), isCollection: true, version: "123"),
-                Update(url: url.appendingPathComponent("foo/a/x"), isCollection: false, version: "123"),
-                Update(url: url.appendingPathComponent("foo/b"), isCollection: false, version: "123"),
-                Update(url: url.appendingPathComponent("foo"), isCollection: true, version: "123"),
-                Update(url: url.appendingPathComponent("bar/c"), isCollection: false, version: "123")
-            ]
+            let path = ["a", "b", "c"]
+            let properties = Properties(isCollection: false, version: "123")
+            try store.update(resourceAt: path, of: account, with: properties)
             
-            try store.update(account, with: updates)
-            
-            let resource = try store.resource(of: account, at: ["foo", "bar.baz"])
+            let resource = try store.resource(of: account, at: path)
             XCTAssertNotNil(resource)
-            XCTAssertEqual(resource?.path ?? [], ["foo", "bar.baz"])
+            if let resource = resource {
+                XCTAssertEqual(resource.path, path)
+                XCTAssertEqual(resource.version, "123")
+                XCTAssertFalse(resource.isCollection)
+                XCTAssertFalse(resource.dirty)
             
-            let content = try store.contents(of: account, at: ["foo"])
-            XCTAssertEqual(content.count, 3)
+                var parentPath = path
+                parentPath.removeLast()
+                let content = try store.contents(of: account, at: parentPath)
+                XCTAssertEqual(content, [resource])
+            }
+            
+            var parentPath = path
+            
+            while parentPath.count > 0 {
+                parentPath.removeLast()
+                
+                let contents = try store.contents(of: account, at: parentPath)
+                XCTAssertEqual(contents.count, 1)
+                
+                let resource = try store.resource(of: account, at: parentPath)
+                XCTAssertNotNil(resource)
+                if let resource = resource {
+                    XCTAssertTrue(resource.dirty)
+                    XCTAssertTrue(resource.isCollection)
+                }
+            }
             
         } catch {
             XCTFail("\(error)")
         }
-        
     }
     
-    struct Update: StoreUpdate {
-        let url: URL
+    func testInsertCollection() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+            
+            try store.update(resourceAt: ["a", "b", "c", "x", "y"], of: account, with: Properties(isCollection: false, version: "123"))
+            try store.update(resourceAt: ["a", "b", "c", "3", "x"], of: account, with: Properties(isCollection: true, version: "123"))
+            try store.update(resourceAt: ["a", "b", "c", "3"], of: account, with: Properties(isCollection: true, version: "123"))
+            
+            let path = ["a", "b", "c"]
+            let properties = Properties(isCollection: true, version: "123")
+            let content = [
+                "1": Properties(isCollection: true, version: "a"),
+                "2": Properties(isCollection: false, version: "b"),
+                "3": Properties(isCollection: false, version: "c")
+            ]
+            try store.update(resourceAt: path, of: account, with: properties, content: content)
+
+            let resource = try store.resource(of: account, at: path)
+            XCTAssertNotNil(resource)
+            if let resource = resource {
+                XCTAssertEqual(resource.path, path)
+                XCTAssertEqual(resource.version, "123")
+                XCTAssertTrue(resource.isCollection)
+                XCTAssertFalse(resource.dirty)
+            }
+            
+            if let resource = try store.resource(of: account, at: ["a", "b", "c", "1"]) {
+                XCTAssertEqual(resource.path, ["a", "b", "c", "1"])
+                XCTAssertEqual(resource.version, "a")
+                XCTAssertTrue(resource.isCollection)
+                XCTAssertTrue(resource.dirty)
+            } else {
+                XCTFail()
+            }
+            
+            if let resource = try store.resource(of: account, at: ["a", "b", "c", "2"]) {
+                XCTAssertEqual(resource.path, ["a", "b", "c", "2"])
+                XCTAssertEqual(resource.version, "b")
+                XCTAssertFalse(resource.isCollection)
+                XCTAssertFalse(resource.dirty)
+            } else {
+                XCTFail()
+            }
+
+            XCTAssertEqual(try store.contents(of: account, at: path).count, 3)
+            XCTAssertNil(try store.resource(of: account, at: ["a", "b", "c", "x"]))
+            XCTAssertNil(try store.resource(of: account, at: ["a", "b", "c", "x", "y"]))
+            XCTAssertNil(try store.resource(of: account, at: ["a", "b", "c", "3", "x"]))
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testUpdateCollectionResource() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+            
+            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
+            
+            let resource = try store.resource(of: account, at: ["a", "b"])
+            XCTAssertNotNil(resource)
+            if let resource = resource {
+                XCTAssertEqual(resource.path, ["a", "b"])
+                XCTAssertEqual(resource.version, "567")
+                XCTAssertTrue(resource.isCollection)
+                XCTAssertFalse(resource.dirty)
+            }
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testUpdateResource() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+            
+            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: true, version: "567"))
+            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "888"))
+            
+            let resource = try store.resource(of: account, at: ["a", "b", "c"])
+            XCTAssertNotNil(resource)
+            if let resource = resource {
+                XCTAssertEqual(resource.path, ["a", "b", "c"])
+                XCTAssertEqual(resource.version, "888")
+                XCTAssertFalse(resource.isCollection)
+                XCTAssertFalse(resource.dirty)
+                
+                let content = try store.contents(of: account, at: ["a", "b"])
+                XCTAssertEqual(content, [resource])
+            }
+            
+            var parentPath = ["a", "b", "c"]
+            while parentPath.count > 0 {
+                parentPath.removeLast()
+                
+                let contents = try store.contents(of: account, at: parentPath)
+                XCTAssertEqual(contents.count, 1)
+                
+                let resource = try store.resource(of: account, at: parentPath)
+                XCTAssertNotNil(resource)
+                if let resource = resource {
+                    XCTAssertTrue(resource.dirty)
+                    XCTAssertTrue(resource.isCollection)
+                }
+            }
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testChangeResourceType() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+            
+            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            try store.update(resourceAt: ["a", "b"], of: account, with: Properties(isCollection: false, version: "567"))
+            
+            let resource = try store.resource(of: account, at: ["a", "b", "c"])
+            XCTAssertNil(resource)
+            
+            let content = try store.contents(of: account, at: ["a", "b"])
+            XCTAssertEqual(content, [])
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testRemoveResource() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url)
+
+            try store.update(resourceAt: ["a", "b", "c"], of: account, with: Properties(isCollection: false, version: "123"))
+            try store.update(resourceAt: ["a", "b"], of: account, with: nil)
+            
+            XCTAssertNil(try store.resource(of: account, at: ["a", "b", "c"]))
+            XCTAssertNil(try store.resource(of: account, at: ["a", "b"]))
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    struct Properties: ResourceProperties {
         let isCollection: Bool
         let version: String
     }
