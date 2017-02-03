@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if error != nil {
                     NSLog("Failed to setup service: \(error)")
                 } else {
-                    let _ = try? self.service?.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
-                    
                     let screen = UIScreen.main
                     self.window = UIWindow(frame: screen.bounds)
                     self.window?.screen = screen

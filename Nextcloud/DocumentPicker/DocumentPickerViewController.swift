@@ -36,8 +36,6 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController, Acc
                     this.resourceListModule = ResourceListModule(accountManager: this.service.accountManager)
                     this.resourceModule = ResourceModule()
                     
-                    let _ = try? this.service.accountManager.addAccount(with: URL(string: "https://cloud.example.com")!)
-                    
                     this.accountListModule.router = this
                     this.resourceListModule.router = this
                     
