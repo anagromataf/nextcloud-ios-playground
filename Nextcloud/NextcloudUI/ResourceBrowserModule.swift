@@ -38,9 +38,9 @@ protocol ResourceBrowserNavigationControllerDelegate: UINavigationControllerDele
 extension ResourceBrowserModule: ResourceBrowserNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, viewControllerFor resource: Resource) -> UIViewController? {
         var viewController: UIViewController? = nil
-        if resource is Folder {
+        if resource is Directory {
             viewController = resourceListModule?.makeViewController()
-        } else if resource is File {
+        } else if resource is Document {
             viewController = resourceModule?.makeViewController()
         }
         if let resourcePresenter = viewController as? ResourcePresenter {
@@ -63,35 +63,12 @@ extension ResourceBrowserNavigationController: ResourcePresenter {
     
     public func present(_ resource: Resource, animated: Bool) {
         guard
-            let delegate = self.delegate as? ResourceBrowserNavigationControllerDelegate
+            let delegate = self.delegate as? ResourceBrowserNavigationControllerDelegate,
+            let viewController = delegate.navigationController(self, viewControllerFor: resource)
             else {
                 return
         }
-        
-        var viewControllers = self.viewControllers
-        var newViewControllers: [UIViewController] = []
-
-        if viewControllers.count > 0 {
-            // The root view controller is alwasy the account list and should always be to root
-            let rootViewController = viewControllers.removeFirst()
-            newViewControllers.append(rootViewController)
-        }
-
-        for resource in resource.resourceChain {
-            let viewController = viewControllers.count > 0 ? viewControllers.removeFirst() : nil
-            if let resourcePresenter = viewController as? ResourcePresenter, resourcePresenter.isResource(resource) == true {
-                newViewControllers.append(viewController!)
-            } else {
-                viewControllers.removeAll()
-                if let viewController = delegate.navigationController(self, viewControllerFor: resource) {
-                    newViewControllers.append(viewController)
-                } else {
-                    return
-                }
-            }
-        }
-        
-        setViewControllers(newViewControllers, animated: animated)
+        pushViewController(viewController, animated: animated)
     }
 }
 
@@ -99,7 +76,7 @@ class ResourceBrowserNavigationController: UINavigationController {
     override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
         guard
             let resourcePresenter = topViewController as? ResourcePresenter,
-            resourcePresenter.resource is File
+            resourcePresenter.resource is Document
             else { return nil }
         
         let viewController = topViewController

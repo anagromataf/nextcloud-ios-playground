@@ -18,15 +18,35 @@ public class Service {
     }
     
     class DummyResourceManager: ResourceManager {
-        func contents(of resource: Resource) throws -> [Resource] {
+        
+        let account: Account
+        init(account: Account) {
+            self.account = account
+        }
+        
+        struct D: Document {
+            let account: Account
+            let path: [String]
+        }
+        
+        struct C: Directory {
+            let account: Account
+            let path: [String]
+        }
+        
+        func resource(at path: [String]) throws -> Resource? {
+            return C(account: account, path: path)
+        }
+        
+        func content(at path: [String]) throws -> [Resource] {
             var contents = ["a", "b", "c", "d", "e"].map { (name) -> Resource in
-                var path = resource.path
+                var path = path
                 path.append(name)
-                return Folder(account: resource.account, path: path)
+                return C(account: account, path: path)
             }
-            var path = resource.path
+            var path = path
             path.append("foo")
-            contents.append(File(account: resource.account, path: path))
+            contents.append(D(account: account, path: path))
             return contents
         }
     }
@@ -72,7 +92,7 @@ public class Service {
         }
         
         func resourceManager(for account: Account) -> ResourceManager {
-            return DummyResourceManager()
+            return DummyResourceManager(account: account)
         }
     }
 }
