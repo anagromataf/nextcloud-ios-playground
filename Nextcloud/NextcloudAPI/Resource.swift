@@ -9,21 +9,23 @@
 import Foundation
 import PureXML
 
-public struct Resource {
-    public let url: URL
-    public let version: String
-    public let collection: Bool
+extension NextcloudAPI {
+    public struct Resource {
+        public let url: URL
+        public let version: String
+        public let collection: Bool
+    }
 }
 
-extension Resource {
+extension NextcloudAPI.Resource {
     
-    static func makeResources(with document: PXDocument, baseURL: URL) throws -> [Resource] {
+    static func makeResources(with document: PXDocument, baseURL: URL) throws -> [NextcloudAPI.Resource] {
         guard
             document.root.qualifiedName == PXQName(name: "multistatus", namespace: "DAV:")
             else { throw NextcloudAPIError.internalError }
         
         var internalError: Error? = nil
-        var result: [Resource] = []
+        var result: [NextcloudAPI.Resource] = []
         
         document.root.enumerateElements { (element, stop) in
             do {
@@ -41,7 +43,7 @@ extension Resource {
         }
     }
     
-    static func makeResource(with element: PXElement, baseURL: URL) throws -> Resource {
+    static func makeResource(with element: PXElement, baseURL: URL) throws -> NextcloudAPI.Resource {
         
         let namespace = ["d":"DAV:"]
         
@@ -50,7 +52,7 @@ extension Resource {
             let urlString = urlElement.stringValue,
             let url = URL(string: urlString, relativeTo: baseURL)
             else { throw NextcloudAPIError.internalError }
-    
+        
         guard
             let etagElement = element.nodes(forXPath: "./d:propstat/d:prop/d:getetag", usingNamespaces: namespace).first as? PXElement,
             let etagString = etagElement.stringValue,
@@ -59,8 +61,7 @@ extension Resource {
         
         let isCollection = element.nodes(forXPath: "./d:propstat/d:prop/d:resourcetype/d:collection", usingNamespaces: namespace).count > 0
         
-        return Resource(url: url, version: version, collection: isCollection)
+        return NextcloudAPI.Resource(url: url, version: version, collection: isCollection)
     }
     
 }
-
