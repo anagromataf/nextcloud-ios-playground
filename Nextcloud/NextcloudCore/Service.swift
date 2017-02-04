@@ -9,18 +9,35 @@
 import Foundation
 import Dispatch
 
-public class Service {
+public protocol ServiceDelegate: class {
+    func service(_ service: Service, needsPasswordFor account: Account, completionHandler: @escaping (String?) -> Void) -> Void
+}
+
+public class Service: ResourceManagerDelegate {
     
-    public private(set) var accountManager: AccountManager
+    public weak var delegate: ServiceDelegate?
+    
+    public let accountManager: AccountManager
     
     private let store: FileStore
     
     public init(directory: URL) {
         self.store = FileStore(directory: directory)
         self.accountManager = AccountManager(store: store)
+        self.accountManager.delegate = self
     }
     
     public func start(completion: ((Error?)->Void)?) {
         store.open(completion: completion)
+    }
+    
+    func passwordForResourceManager(_ manager: ResourceManager, with completionHandler: @escaping (String?) -> Void) {
+        DispatchQueue.main.async {
+            if let delegate = self.delegate {
+                delegate.service(self, needsPasswordFor: manager.account, completionHandler: completionHandler)
+            } else {
+                completionHandler(nil)
+            }
+        }
     }
 }

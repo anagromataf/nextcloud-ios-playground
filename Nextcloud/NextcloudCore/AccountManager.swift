@@ -42,6 +42,8 @@ public extension Notification.Name {
 
 public class AccountManager {
 
+    weak var delegate: ResourceManagerDelegate?
+    
     let queue: DispatchQueue
     let store: FileStore
     init(store: FileStore) {
@@ -82,6 +84,7 @@ public class AccountManager {
                 return manager
             } else {
                 let manager = ResourceManager(store: store, account: account)
+                manager.delegate = self.delegate
                 resourceManagers[account] = manager
                 return manager
             }
