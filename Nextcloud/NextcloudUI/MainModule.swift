@@ -106,3 +106,39 @@ extension MainViewController: ResourcePresenter {
         }
     }
 }
+
+extension MainViewController: PasswordPromt {
+    
+    public func requestPassword(for account: Account, completion: @escaping (String?) -> Void) {
+        
+        let title = "Login"
+        let message = "Password for '\(account.username)' at '\(account.url.absoluteString)'"
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = NSLocalizedString("Password", comment: "")
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+            textField.isSecureTextEntry = true
+        }
+        
+        let loginAction = UIAlertAction(title: NSLocalizedString("Login", comment: ""), style: .default) {
+            action in
+            let password = alert.textFields?.last?.text
+            completion(password)
+        }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) {
+            action in
+            
+            completion(nil)
+        }
+        
+        alert.addAction(loginAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+}

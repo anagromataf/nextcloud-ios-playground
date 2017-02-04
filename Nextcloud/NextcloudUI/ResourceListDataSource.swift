@@ -19,7 +19,38 @@ class ResourceListDataSource: NSObject, FTDataSource {
         self.resourceManager = resourceManager
         self.resource = resource
         super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(resourceManagerDidChange(_:)),
+                                               name: Notification.Name.ResourceManagerDidChange,
+                                               object: resourceManager)
         reload()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func resourceManagerDidChange(_ notification: Notification) {
+        DispatchQueue.main.async {
+            
+            if let insertedOrUpdate = notification.userInfo?[InsertedOrUpdatedResourcesKey] as? [Resource] {
+                for resource in insertedOrUpdate {
+                    if self.resource.path.starts(with: resource.path)  {
+                        self.reload()
+                        return
+                    }
+                }
+            }
+            
+            if let deleted = notification.userInfo?[DeletedResourcesKey] as? [Resource] {
+                for resource in deleted {
+                    if self.resource.path.starts(with: resource.path)  {
+                        self.reload()
+                        return
+                    }
+                }
+            }
+        }
     }
  
     private var resources: [Resource] = []
