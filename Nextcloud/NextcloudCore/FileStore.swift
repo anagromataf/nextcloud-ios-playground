@@ -302,7 +302,8 @@ class FileStore: Store {
                         .filter(
                             FileStoreSchema.account_id == account.id
                             && FileStoreSchema.href == href
-                            && FileStoreSchema.version == properties.version)
+                            && FileStoreSchema.version == properties.version
+                            && FileStoreSchema.dirty == false)
         if try db.pluck(query) != nil {
             return false
         } else {
@@ -330,25 +331,15 @@ class FileStore: Store {
             .order(FileStoreSchema.href.asc)
             .select(FileStoreSchema.href, FileStoreSchema.version)
         
-        var names = content.keys.sorted()
-        
-        var insert: [String] = []
-        var update: [String] = []
+        var insertOrUpdate: [String:StoreResourceProperties] = content
         
         for row in try db.prepare(query) {
             let path = self.makePath(with: row.get(FileStoreSchema.href))
-            if let currentName = path.last {
-                while names.count > 0 && names[0] < currentName {
-                    insert.append(names[0])
-                    names.removeFirst()
-                }
-                
-                if names.count > 0 && currentName == names[0] {
-                    let name = names[0]
-                    names.removeFirst()
-                    let version = row.get(FileStoreSchema.version)
-                    if version != content[name]?.version {
-                        update.append(name)
+            let version = row.get(FileStoreSchema.version)
+            if let name = path.last {
+                if let newProeprties = insertOrUpdate[name] {
+                    if newProeprties.version == version {
+                        insertOrUpdate[name] = nil
                     }
                 } else {
                     _ = try self.removeResource(at: path, of: account, in: db, with: changeSet)
@@ -356,31 +347,14 @@ class FileStore: Store {
             }
         }
         
-        for name in insert {
-            guard
-                let properties = content[name]
-                else { continue }
-
+        for (name, properties) in insertOrUpdate {
             var childPath = path
             childPath.append(name)
-            
-            _ = try self.updateResource(at: childPath, of: account, with: properties, dirty: properties.isCollection, in: db, with: changeSet)
-        }
-        
-        for name in update {
-            guard
-                let properties = content[name]
-                else { continue }
-            
-            var childPath = path
-            childPath.append(name)
-            
             _ = try self.updateResource(at: childPath, of: account, with: properties, dirty: properties.isCollection, in: db, with: changeSet)
             if properties.isCollection == false {
                 _ = try self.clearCollection(at: childPath, of: account, in: db, with: changeSet)
             }
         }
-        
     }
     
     private func clearCollection(at path: [String], of account: Account, in db: SQLite.Connection, with changeSet: FileStoreChangeSet) throws {

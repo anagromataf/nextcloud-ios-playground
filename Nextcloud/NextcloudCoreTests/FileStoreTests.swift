@@ -131,6 +131,33 @@ class FileStoreTests: TestCase {
             let url = URL(string: "https://example.com/api/")!
             let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
             
+            let path = ["a", "b", "c"]
+            let properties = Properties(isCollection: true, version: "123")
+            let content = [
+                "1": Properties(isCollection: true, version: "a"),
+                "2": Properties(isCollection: false, version: "b"),
+                "3": Properties(isCollection: false, version: "c")
+            ]
+            _ = try store.update(resourceAt: path, of: account, with: properties, content: content)
+            
+            XCTAssertNotNil(try store.resource(of: account, at: ["a", "b", "c", "1"]))
+            XCTAssertNotNil(try store.resource(of: account, at: ["a", "b", "c", "2"]))
+            XCTAssertNotNil(try store.resource(of: account, at: ["a", "b", "c", "3"]))
+            
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testUpdateCollection() {
+        guard
+            let store = self.store
+            else { XCTFail(); return }
+        
+        do {
+            let url = URL(string: "https://example.com/api/")!
+            let account: FileStore.Account = try store.addAccount(with: url, username: "romeo")
+            
             _ = try store.update(resourceAt: ["a", "b", "c", "x", "y"], of: account, with: Properties(isCollection: false, version: "123"))
             _ = try store.update(resourceAt: ["a", "b", "c", "3", "x"], of: account, with: Properties(isCollection: true, version: "123"))
             _ = try store.update(resourceAt: ["a", "b", "c", "3"], of: account, with: Properties(isCollection: true, version: "123"))
